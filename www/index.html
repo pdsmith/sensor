@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Sensor</title>
+	<script type="text/javascript" src="phonegap.js"></script>
+	<script type="text/template" id="data-template">
+			<li><%= title %></li>
+	</script>
+	<script type="text/template" id="sensor-template">
+			<h3>Sensor</h3>
+			<li><%= title %></li>
+	</script>
+	<script type="text/template" id="menu-template">
+		<li><a href="/<%= url %>/" data-id="<%= url %>" class="choice"><%= title %></a></li>
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="js/backbone-min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		function init() {
+		  //alert("init");
+		  app.initialize();
+		  Backbone.history.start({pushState: true});
+		  appRouter.start();
+		}
+	</script>
+    </head>
+    <body onload="init();">
+	<h3>Version x.02.20</h3>
+	<div>Bluetooth</div>
+	<button id="blueConnect">Connect</button>
+	<button id="blueData">Get Data from Arduino</button>
+	<div>File Storage</div>
+	<button id="fileCreateButton">Create File</button>
+	<button id="fileSaveButton">Save Local to File</button>
+	<button id="fileDirButton">Show Directory Contents</button>
+	<div>Local Storage</div>
+	<button id="clearDataButton">Clear Stored Data</button>
+	<button id="saveDataButton">Save Local Data to File</button>
+	<button id="showDataButton">Show Stored Data</button>
+	<button id="submitDataButton">Submit Stored Data</button>
+	<div>Misc Tools</div>
+	<button id="clearContentButton">Clear Content</button>
+	<button id="getGPSButton">Get Coordinates</button>
+	<button id="getCameraButton">Take Picture</button>
+	<button id="sendSMSButton">Send SMS</button>
+	<div id="menu">Menu:</div>
+	<div id="content">Content:</div>
+    </body>
+</html>

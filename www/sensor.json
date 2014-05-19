@@ -1,0 +1,14 @@
+[
+  {
+	"title": "Temperature",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "1"
+  },
+  {
+	"title": "Color",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  }
+]

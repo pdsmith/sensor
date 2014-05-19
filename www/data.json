@@ -1,0 +1,14 @@
+[
+  {
+	"title": "Extract",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "1"
+  },
+  {
+	"title": "View",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  }
+]

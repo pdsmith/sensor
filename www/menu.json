@@ -1,0 +1,16 @@
+[
+  {
+	"title": "Sensor",
+	"url": "sensor",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "1"
+  },
+  {
+	"title": "Data",
+	"url": "data",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  }
+]
