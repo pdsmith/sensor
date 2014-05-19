@@ -153,7 +153,6 @@ var app = {
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
-	    /*
 	    var keyStorage = window.localStorage.getItem("prevKeys");
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
@@ -166,7 +165,6 @@ var app = {
 		alert("Test pull of prevKeys: " + keyStorage);
 		// add data to session key
 		window.localStorage.setItem(SESSIONID, data);
-	    */
         }, app.showError);
   },
   closePort: function(){
