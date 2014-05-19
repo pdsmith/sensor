@@ -40,6 +40,8 @@
 		this.collection.on('reset', this.addOne, this);
 	},
     	addOne: function(c){
+		console.log(c);
+		alert(c);
 		var sensorListItemView = new SensorListItemView({model: c});
 		sensorListItemView.render();
 	},
@@ -61,6 +63,7 @@
 	el: '#content',
     	template: _.template($('#sensor-template').html()),
 	render: function(eventName){
+		alert("SensorListItemView");
 		$(this.el).append(this.template(this.model.toJSON()));
 		return this;
 	}
