@@ -144,6 +144,7 @@ var fileSystem;
 var app = {
     macAddress: "98:76:B6:00:15:ED",  // get your mac address from bluetoothSerial.list
     chars: "",
+    SESSIONID: +new Date,
 
 /* device functions */
   getId: function(id) {
@@ -152,7 +153,7 @@ var app = {
   bindEvents: function(){
     app.getId("#blueConnect").addEventListener("touchstart",app.blueConnect);         
     app.getId("#blueData").addEventListener("touchstart",app.blueData);         
-    app.getId("#clearDataButton").addEventListener("touchstart",app.clearLocalData);         
+    app.getId("#clearDataButton").addEventListener("click",app.clearLocalData);         
     app.getId("#fileCreateButton").addEventListener("touchstart",app.fileCreate);            
     app.getId("#fileDirButton").addEventListener("touchstart",app.fileDirectoryListing);            
     app.getId("#clearContentButton").addEventListener("touchstart",app.clearContent);            
@@ -163,6 +164,7 @@ var app = {
     app.getId("#sendSMSButton").addEventListener("click",app.sendSMS);            
     app.getId("#showDataButton").addEventListener("click",app.showLocalData);            
     app.getId("#submitDataButton").addEventListener("click",app.submitLocalData);            
+    app.getId("#testDataButton").addEventListener("click",app.testData);            
   },
   clearContent: function() {
     app.getId("#content").innerHTML = "";
@@ -198,7 +200,7 @@ var app = {
         blueConnect.innerHTML = "Disconnect";
 	var dataString;
         bluetoothSerial.subscribe(':', function (data) {
-	    var SESSIONID = +new Date;
+	    //var app.SESSIONID = +new Date;
             app.showContent(data);
 	    alert(data);
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
@@ -207,15 +209,15 @@ var app = {
 	    var keyStorage = window.localStorage.getItem("prevKeys");
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
-			keyStorage = ""+ keyStorage +","+ SESSIONID +"";
+			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"";
 		} else {
-			var keyStorage = ""+ SESSIONID +"";
+			var keyStorage = ""+ app.SESSIONID +"";
 		}	
 		// save session key to key ring
 		window.localStorage.setItem("prevKeys", keyStorage);
 		alert("Test pull of prevKeys: " + keyStorage);
 		// add data to session key
-		window.localStorage.setItem(SESSIONID, data);
+		window.localStorage.setItem(app.SESSIONID, data);
         }, app.showError);
   },
   closePort: function(){
@@ -298,7 +300,7 @@ var app = {
 	    alert("clearData");
 	    window.localStorage.clear();
 	    //window.localStorage.removeItem("prevKeys");
-	    alert("Check: " + window.localStorage.getItem("logKeys"));
+	    alert("Check: " + window.localStorage.getItem("prevKeys"));
   },
   // local function for looping through local data a=local or remote,t=save or delete
   getLocalData: function(a,t){
@@ -324,7 +326,7 @@ var app = {
 		     }
 		     //alert("Read Session: "+ read);
 		     if(a=="remote"){
-     		       //rsubmit(read); // working
+			alert(read);
 		     	app.submitRemote(read);
 		     }
 			     //to_submit = read.split(',');
@@ -347,7 +349,7 @@ var app = {
 		url: url,
 		contentType: "application/json",
 		dataType: 'jsonp',
-		data: {ss: s},
+		data: {ss: s,tt: ""+ app.SESSIONID +""},
 		crossDomain: true,
 		timeout: 4000,
 		error: function(x,t,m){ 
@@ -370,7 +372,7 @@ var app = {
   },
   showLocalData: function(){
     alert("showLocalData");
-    alert("Test Pull: " + window.localStorage.getItem("prevKeys"));
+    app.getLocalData("remote","save");
   },
   submitLocalData: function(){
     alert("submitLocalData");
@@ -418,6 +420,14 @@ var app = {
 		'Hello World Title', //title
 		'Finished' //buttonName
 	);
+  },
+  testData: function(){
+    alert("testData");
+    window.localStorage.setItem("prevKeys", "123456789,234567891");
+    window.localStorage.setItem("123456789", "time=14:34:56,PH=4.5,ORP=234,DO=4.7,EC=211μs,T=89,C=4.5");
+    window.localStorage.setItem("234567891", "time=09:03:23,PH=3.0,ORP=450,DO=5.9,EC=123μs,T=85,C=2.1");
+    var prevStorage = window.localStorage.getItem("prevKeys");
+    alert("Test pull on prevKeys: "+ prevStorage);
   },
   onError: function() {
     alert("onError");
