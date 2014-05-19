@@ -1,17 +1,26 @@
 /* interface */
+  var Data = Backbone.Model.extend();
   var Home = Backbone.Model.extend();
   var Sensor = Backbone.Model.extend();
   var HomeList = Backbone.Collection.extend({
 	model: Home,
     	url: './menu.json'
   });
-  var SensorList = Backbone.Collection.extend({
-	model: Sensor,
-    	url: '/sensor.json',
+  var DataList = Backbone.Collection.extend({
+	model: Data,
+    	url: 'data.json',
 	parse: function(data){
 	  console.log("parse");
 	  console.log(data);
 	}
+  });
+  var SensorList = Backbone.Collection.extend({
+	model: Sensor,
+    	url: '/sensor/sensor.json',
+	//parse: function(data){
+	 // console.log("parse");
+	  //console.log(data);
+	//}
   });
   var HomeListView = Backbone.View.extend({
 	el: '#menu',
@@ -34,6 +43,25 @@
 		homeListItemView.render();
 	},
         render: function(){
+		this.collection.forEach(this.addOne, this);
+	}
+  });
+  var DataListView = Backbone.View.extend({
+	el: '#menu',
+	initialize: function(){
+		this.collection.on('add', this.addOne, this);
+		this.collection.on('reset', this.addOne, this);
+	},
+    	addOne: function(c){
+		alert("addOne"+c);
+		console.log("addOne"+c);
+		var dataListItemView = new DataListItemView({model: c});
+		dataListItemView.render();
+	},
+        render: function(){
+		alert("DataListView"+ this.collection);
+		console.log("DataListView"+ this.collection);
+		//$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -64,6 +92,15 @@
 		return this;
 	}
   });
+  var DataListItemView = Backbone.View.extend({
+	el: '#content',
+    	template: _.template($('#data-template').html()),
+	render: function(eventName){
+		alert("DataListItemView");
+		$(this.el).append(this.template(this.model.toJSON()));
+		return this;
+	}
+  });
   var SensorListItemView = Backbone.View.extend({
 	el: '#content',
     	template: _.template($('#sensor-template').html()),
@@ -77,7 +114,15 @@
   var appRouter = new (Backbone.Router.extend({
   routes: {
 	"": "start",
+	"data": "data",
 	"sensor": "sensor"
+  },
+  data: function(){
+	alert("data");
+	this.dataList = new DataList();
+	this.dataListView = new DataListView({collection: this.dataList});
+	this.dataListView.render();
+	this.dataList.fetch();
   },
   sensor: function(){
 	alert("sensor");

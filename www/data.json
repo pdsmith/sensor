@@ -1,14 +1,32 @@
 [
   {
-	"title": "Extract",
+	"title": "Connect to Arduino",
       	"type": "button",
       	"status": "incomplete",
       	"id": "1"
   },
   {
-	"title": "View",
+	"title": "Get Data from Arduino",
       	"type": "button",
       	"status": "incomplete",
       	"id": "2"
+  },
+  {
+	"title": "View Mobile Data",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "3"
+  },
+  {
+	"title": "Submit Mobile Data to SCCWRP",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "4"
+  },
+  {
+	"title": "Save Data to Mobile SD",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "5"
   }
 ]
