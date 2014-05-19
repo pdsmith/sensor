@@ -7,7 +7,7 @@
   });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
-    	url: 'sensor.json'
+    	url: './sensor.json'
   });
   var HomeListView = Backbone.View.extend({
 	el: '#menu',
@@ -23,7 +23,7 @@
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
 		alert(e.currentTarget);
-		appRouter.navigate('sensor', {trigger: true});
+		appRouter.navigate('sensor/' + id, {trigger: true});
     	},
     	addOne: function(c){
 		var homeListItemView = new HomeListItemView({model: c});
@@ -44,7 +44,8 @@
 		sensorListItemView.render();
 	},
         render: function(){
-		$(this.el).html("");
+		alert("SensorListView");
+		//$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -68,7 +69,7 @@
   var appRouter = new (Backbone.Router.extend({
   routes: {
 	"": "start",
-	"sensor": "sensor"
+	"sensor/sensor": "sensor"
   },
   sensor: function(){
 	alert("sensor");
