@@ -40,8 +40,8 @@
 		this.collection.on('reset', this.addOne, this);
 	},
     	addOne: function(c){
-		console.log(c);
-		alert(c);
+		alert("addOne"+c);
+		console.log("addOne"+c);
 		var sensorListItemView = new SensorListItemView({model: c});
 		sensorListItemView.render();
 	},
@@ -109,6 +109,7 @@ var app = {
     app.getId("#clearContentButton").addEventListener("touchstart",app.clearContent);            
     app.getId("#getGPSButton").addEventListener("touchstart",app.getGPS);            
     app.getId("#getCameraButton").addEventListener("touchstart",app.getCamera);            
+    app.getId("#nativeAlertButton").addEventListener("click",app.nativeAlert);            
     app.getId("#saveDataButton").addEventListener("click",app.saveLocalData);            
     app.getId("#sendSMSButton").addEventListener("click",app.sendSMS);            
     app.getId("#showDataButton").addEventListener("click",app.showLocalData);            
@@ -356,6 +357,18 @@ var app = {
 	//smsplugin.send("5625727718","test from sccwrp",successCallback(result),failureCallback(error));
 	sms = window.plugins.sms;
 	sms.isSupported(successCallback(function(result) { alert("SMS works"); }), failureCallback(function(result) { alert("SMS failed"); }));
+  },
+  nativeAlert: function(){
+	alert("nativeAlert");
+	function helloWorld(){
+		alert("helloWorld");
+	}
+	navigator.notification.alert(
+		'Hello World Native Dialog',  //message
+		helloWorld,  //callback
+		'Hello World Title', //title
+		'Finished' //buttonName
+	);
   },
   onError: function() {
     alert("onError");
