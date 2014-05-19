@@ -12,7 +12,7 @@
 			<li><%= title %></li>
 	</script>
 	<script type="text/template" id="menu-template">
-		<li><a href="/sensor/<%= url %>" data-id="<%= url %>" class="choice"><%= title %></a></li>
+		<li><a href="#<%= url %>" data-id="<%= url %>" class="choice"><%= title %></a></li>
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="js/underscore-min.js"></script>
@@ -36,6 +36,7 @@
 	<button id="fileCreateButton">Create File</button>
 	<button id="fileSaveButton">Save Local to File</button>
 	<button id="fileDirButton">Show Directory Contents</button>
+	<button id="fileUploadButton">Upload File to SCCWRP</button>
 	<div>Local Storage</div>
 	<button id="clearDataButton">Clear Stored Data</button>
 	<button id="saveDataButton">Save Local Data to File</button>
@@ -48,7 +49,7 @@
 	<button id="sendSMSButton">Send SMS</button>
 	<button id="getCameraButton">Take Picture</button>
 	<button id="testDataButton">Test Data</button>
-	<div id="home"><a href="/sensor">Home</a></div>
+	<div id="home"><a href="#home">Home</a></div>
 	<div id="menu">Menu:</div>
 	<div id="content">Content:</div>
     </body>

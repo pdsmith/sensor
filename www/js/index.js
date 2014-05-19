@@ -8,7 +8,7 @@
   });
   var DataList = Backbone.Collection.extend({
 	model: Data,
-    	url: 'data.json',
+    	url: 'cdvfile://localhost/data.json',
 	parse: function(data){
 	  console.log("parse");
 	  console.log(data);
@@ -16,7 +16,7 @@
   });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
-    	url: '/sensor/sensor.json',
+    	url: './sensor.json',
 	//parse: function(data){
 	 // console.log("parse");
 	  //console.log(data);
@@ -114,6 +114,7 @@
   var appRouter = new (Backbone.Router.extend({
   routes: {
 	"": "start",
+	"home": "start",
 	"data": "data",
 	"sensor": "sensor"
   },
@@ -165,6 +166,7 @@ var app = {
     app.getId("#showDataButton").addEventListener("click",app.showLocalData);            
     app.getId("#submitDataButton").addEventListener("click",app.submitLocalData);            
     app.getId("#testDataButton").addEventListener("click",app.testData);            
+    app.getId("#fileUploadButton").addEventListener("click",app.uploadFile);            
   },
   clearContent: function() {
     app.getId("#content").innerHTML = "";
@@ -289,7 +291,36 @@ var app = {
     alert(fileSystem);
     fileSystem.root.getFile("test.txt", {create:true}, app.fileAppend, app.onError);
   },
+  uploadFile: function(e) {
+    alert("uploadFile to SCCWRP");
+    var fileURL = "cdvfile://localhost/test.txt";
+    function win(r){
+	alert(r);
+    }
+    function fail(error){
+	alert(error);
+    }
 
+    var uri = encodeURI("http://data.sccwrp.org/sensor/upload.php");
+
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
+    options.mimeType = "text/plain";
+    
+    var headers={'headerParam':'headerValue'};
+    options.headers = headers;
+
+    var ft = new FileTransfer();
+    ft.onprogress = function(progressEvent){
+	if(progressEvent.lengthComputable){
+	  loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+	} else {
+	  loadingStatus.increment();
+	}
+    }
+    ft.upload(fileURL, uri, win, fail, options);
+  },
 /* end file storage */
 
 /* start local storage */
