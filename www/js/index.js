@@ -8,7 +8,7 @@
   });
   var DataList = Backbone.Collection.extend({
 	model: Data,
-    	url: 'cdvfile://localhost/data.json',
+    	url: './data.json',
 	parse: function(data){
 	  console.log("parse");
 	  console.log(data);
