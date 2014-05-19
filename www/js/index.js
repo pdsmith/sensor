@@ -46,7 +46,8 @@
 		sensorListItemView.render();
 	},
         render: function(){
-		alert("SensorListView");
+		alert("SensorListView"+ this.collection);
+		console.log("SensorListView"+ this.collection);
 		//$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
