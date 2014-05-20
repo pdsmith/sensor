@@ -83,7 +83,8 @@
 	},
         render: function(){
 		alert("SensorListView"+ this.collection);
-		console.log("SensorListView"+ this.collection);
+		console.log("SensorListView");
+		console.log(this.collection);
 		//$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
@@ -117,7 +118,7 @@
 
   var appRouter = new (Backbone.Router.extend({
   routes: {
-	"control/data": "data",
+	"data": "data",
 	"sensor": "sensor"
   },
   data: function(){
@@ -488,6 +489,11 @@ var app = {
   },
   initialize: function() {
 	//alert("initialize");
+	// disable jquery mobile routing
+       $.mobile.ajaxEnabled = false;
+       $.mobile.linkBindingEnabled = false;
+       $.mobile.hashListeningEnabled = false;
+       $.mobile.pushStateEnabled = false;
 	app.bindEvents();
     	document.addEventListener("deviceready", app.onDeviceReady, true);
   }
