@@ -1,18 +1,18 @@
 /* interface */
-  var Data = Backbone.Model.extend();
+  var Action = Backbone.Model.extend();
   var Home = Backbone.Model.extend();
   var Sensor = Backbone.Model.extend();
   var HomeList = Backbone.Collection.extend({
 	model: Home,
     	url: 'menu.json'
   });
-  var DataList = Backbone.Collection.extend({
-	model: Data,
-    	url: 'data.json',
-	parse: function(data){
-	  console.log("parse");
-	  console.log(data);
-	}
+  var ActionList = Backbone.Collection.extend({
+	model: Action,
+    	url: 'bluetooth.json',
+	//parse: function(data){
+	  //console.log("parse");
+	  //console.log(data);
+	//}
   });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
@@ -50,7 +50,7 @@
 		this.collection.forEach(this.addOne, this);
 	}
   });
-  var DataListView = Backbone.View.extend({
+  var ActionListView = Backbone.View.extend({
 	el: '#menu',
 	initialize: function(){
 		this.collection.on('add', this.addOne, this);
@@ -59,13 +59,13 @@
     	addOne: function(c){
 		alert("addOne"+c);
 		console.log("addOne"+c);
-		var dataListItemView = new DataListItemView({model: c});
-		dataListItemView.render();
+		var actionListItemView = new ActionListItemView({model: c});
+		actionListItemView.render();
 	},
         render: function(){
-		alert("DataListView"+ this.collection);
-		console.log("DataListView"+ this.collection);
-		//$(this.el).html("");
+		alert("ActionListView"+ this.collection);
+		console.log("ActionListView"+ this.collection);
+		$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -97,12 +97,22 @@
 		return this;
 	}
   });
-  var DataListItemView = Backbone.View.extend({
-	el: '#content',
-    	template: _.template($('#data-template').html()),
+  var ActionListItemView = Backbone.View.extend({
+	el: '#menu',
+    	template: _.template($('#action-template').html()),
+        events: {
+		'click .ui-btn' : 'showAction'
+	},
+        showAction: function(e){
+		e.preventDefault();
+		var id = $(e.currentTarget).data("id");
+		alert("showAction: "+id);
+		app.blueConnect();
+	},
 	render: function(eventName){
-		alert("DataListItemView");
+		alert("ActionListItemView");
 		$(this.el).append(this.template(this.model.toJSON()));
+		//app.getId("#blueConnect").addEventListener("click",app.blueConnect);
 		return this;
 	}
   });
@@ -118,15 +128,15 @@
 
   var appRouter = new (Backbone.Router.extend({
   routes: {
-	"data": "data",
+	"action": "action",
 	"sensor": "sensor"
   },
-  data: function(){
-	alert("data");
-	this.dataList = new DataList();
-	this.dataListView = new DataListView({collection: this.dataList});
-	this.dataListView.render();
-	this.dataList.fetch();
+  action: function(){
+	alert("action");
+	this.actionList = new ActionList();
+	this.actionListView = new ActionListView({collection: this.actionList});
+	this.actionListView.render();
+	this.actionList.fetch();
   },
   sensor: function(){
 	alert("sensor");
@@ -155,8 +165,8 @@ var app = {
     return document.querySelector(id);
   },
   bindEvents: function(){
-    app.getId("#blueConnect").addEventListener("touchstart",app.blueConnect);         
-    app.getId("#blueData").addEventListener("touchstart",app.blueData);         
+    //app.getId("#blueConnect").addEventListener("touchstart",app.blueConnect);         
+    //app.getId("#blueData").addEventListener("touchstart",app.blueData);         
     app.getId("#clearDataButton").addEventListener("click",app.clearLocalData);         
     app.getId("#fileCreateButton").addEventListener("touchstart",app.fileCreate);            
     app.getId("#fileDirButton").addEventListener("touchstart",app.fileDirectoryListing);            
@@ -180,6 +190,7 @@ var app = {
 
 /* start bluetooth functions */
   blueConnect: function() {
+	alert("blueConnect");
         var connect = function () {
 	    alert(app.macAddress);
             app.showContent("Attempting to connect. " +

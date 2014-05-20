@@ -4,6 +4,9 @@
       <title>Sensor</title>
         <link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.2/css/themes/default/jquery.mobile-1.4.2.min.css"/>
 	<script type="text/javascript" src="phonegap.js"></script>
+	<script type="text/template" id="action-template">
+		        <button id="<%= action %>" data-id="<%= action %>" class="ui-btn ui-btn-inline"><%= title %></button>
+	</script>
 	<script type="text/template" id="data-template">
 			<h3>Data</h3>
 			<li><%= title %></li>
@@ -31,9 +34,8 @@
     </head>
     <body onload="init();">
 	<h3>Version x.02.20</h3>
-	<div>Bluetooth</div>
-	<button id="blueConnect">Connect</button>
-	<button id="blueData">Get Data from Arduino</button>
+	<div id="home"><a href="index.html">Home</a></div>
+	<div id="menu">Menu:</div>
 	<div>File Storage</div>
 	<button id="fileCreateButton">Create File</button>
 	<button id="fileSaveButton">Save Local to File</button>
@@ -52,7 +54,5 @@
 	<button id="getCameraButton">Take Picture</button>
 	<button id="testDataButton">Test Data</button>
 	<div id="home"><a href="index.html">Home</a></div>
-	<div id="menu">Menu:</div>
-	<div id="content">Content:</div>
     </body>
 </html>
