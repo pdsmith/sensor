@@ -117,7 +117,7 @@
 	}
   });
   var SensorListItemView = Backbone.View.extend({
-	el: '#content',
+	el: '#menu',
     	template: _.template($('#sensor-template').html()),
 	render: function(eventName){
 		alert("SensorListItemView");
