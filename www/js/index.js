@@ -4,11 +4,11 @@
   var Sensor = Backbone.Model.extend();
   var HomeList = Backbone.Collection.extend({
 	model: Home,
-    	url: './menu.json'
+    	url: 'menu.json'
   });
   var DataList = Backbone.Collection.extend({
 	model: Data,
-    	url: './data.json',
+    	url: 'data.json',
 	parse: function(data){
 	  console.log("parse");
 	  console.log(data);
@@ -16,7 +16,7 @@
   });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
-    	url: './sensor.json',
+    	url: 'sensor.json',
 	//parse: function(data){
 	 // console.log("parse");
 	  //console.log(data);
