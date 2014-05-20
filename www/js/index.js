@@ -65,7 +65,7 @@
         render: function(){
 		alert("ActionListView"+ this.collection);
 		console.log("ActionListView"+ this.collection);
-		$(this.el).html("");
+		//$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
