@@ -35,8 +35,12 @@
         showMenu: function(e){
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
+		alert("showMenu: "+id);
+		//var item = this.collection.get(id);
+		//var name = item.get("title");
+		//alert(name);
+		appRouter.navigate(id, true);
 		alert(e.currentTarget);
-		appRouter.navigate(id, {trigger: true});
     	},
     	addOne: function(c){
 		var homeListItemView = new HomeListItemView({model: c});
@@ -113,9 +117,7 @@
 
   var appRouter = new (Backbone.Router.extend({
   routes: {
-	"": "start",
-	"home": "start",
-	"data": "data",
+	"control/data": "data",
 	"sensor": "sensor"
   },
   data: function(){
