@@ -1,0 +1,30 @@
+[
+  {
+	"title": "Create File",
+	"action": "fileCreateButton",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "1"
+  },
+  {
+	"title": "Save Local to File",
+	"action": "fileSaveButton",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  },
+  {
+	"title": "Show Directory Contents",
+	"action": "fileDirButton",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "3"
+  },
+  {
+	"title": "Upload File to SCCWRP",
+	"action": "fileUploadButton",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "4"
+  }
+]

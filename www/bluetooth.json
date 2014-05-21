@@ -1,0 +1,16 @@
+[
+  {
+	"title": "Bluetooth Connect",
+	"action": "blueConnect",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "1"
+  },
+  {
+	"title": "Get Data from Arduino",
+	"action": "blueData",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  }
+]
