@@ -202,7 +202,7 @@ var app = {
     app.getId("#submitDataButton").addEventListener("click",app.submitLocalData);            
     app.getId("#testDataButton").addEventListener("click",app.testData);            
     //app.getId("#fileUploadButton").addEventListener("click",app.uploadFile);            
-    app.getGPS();
+    //app.getGPS(); -- move to deviceREady
   },
   clearContent: function() {
     app.getId("#content").innerHTML = "";
@@ -528,6 +528,7 @@ var app = {
             listPorts,
             notEnabled
     );
+    app.getGPS();
   },
   initialize: function() {
 	//alert("initialize");
