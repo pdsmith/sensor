@@ -1,16 +1,23 @@
 [
   {
-	"title": "Sensor",
-	"url": "sensor",
+	"title": "Bluetooth",
+	"url": "action",
       	"type": "button",
       	"status": "incomplete",
       	"id": "1"
   },
   {
-	"title": "Action",
-	"url": "action",
+	"title": "File",
+	"url": "file",
       	"type": "button",
       	"status": "incomplete",
       	"id": "2"
+  },
+  {
+	"title": "Sensor",
+	"url": "sensor",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "3"
   }
 ]

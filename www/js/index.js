@@ -1,5 +1,6 @@
 /* interface */
   var Action = Backbone.Model.extend();
+  var File = Backbone.Model.extend();
   var Home = Backbone.Model.extend();
   var Sensor = Backbone.Model.extend();
   var HomeList = Backbone.Collection.extend({
@@ -13,6 +14,10 @@
 	  //console.log("parse");
 	  //console.log(data);
 	//}
+  });
+  var FileList = Backbone.Collection.extend({
+	model: File,
+    	url: 'file.json',
   });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
@@ -107,7 +112,14 @@
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
 		alert("showAction: "+id);
-		app.blueConnect();
+		//app.blueConnect();
+		//app.""+id+"";
+		switch(id) {
+		  case "fileCreate":
+       			app.fileCreate();
+    		  break;
+		}
+		//app["blueConnect"]();
 	},
 	render: function(eventName){
 		alert("ActionListItemView");
@@ -129,7 +141,9 @@
   var appRouter = new (Backbone.Router.extend({
   routes: {
 	"action": "action",
-	"sensor": "sensor"
+	"file": "file",
+	"sensor": "sensor",
+	"test": "test"
   },
   action: function(){
 	alert("action");
@@ -137,6 +151,13 @@
 	this.actionListView = new ActionListView({collection: this.actionList});
 	this.actionListView.render();
 	this.actionList.fetch();
+  },
+  file: function(){
+	alert("file");
+	this.fileList = new FileList();
+	this.actionListView = new ActionListView({collection: this.fileList});
+	this.actionListView.render();
+	this.fileList.fetch();
   },
   sensor: function(){
 	alert("sensor");
@@ -146,7 +167,7 @@
 	this.sensorList.fetch();
   },
   start: function(){
-	alert("start");
+	//alert("start");
 	this.homeList = new HomeList();
 	this.homeListView = new HomeListView({collection: this.homeList});
 	this.homeListView.render();
@@ -158,6 +179,7 @@ var fileSystem;
 var app = {
     macAddress: "98:76:B6:00:15:ED",  // get your mac address from bluetoothSerial.list
     chars: "",
+    position: "",
     SESSIONID: +new Date,
 
 /* device functions */
@@ -168,10 +190,10 @@ var app = {
     //app.getId("#blueConnect").addEventListener("touchstart",app.blueConnect);         
     //app.getId("#blueData").addEventListener("touchstart",app.blueData);         
     app.getId("#clearDataButton").addEventListener("click",app.clearLocalData);         
-    app.getId("#fileCreateButton").addEventListener("touchstart",app.fileCreate);            
-    app.getId("#fileDirButton").addEventListener("touchstart",app.fileDirectoryListing);            
+    //app.getId("#fileCreateButton").addEventListener("touchstart",app.fileCreate);            
+    //app.getId("#fileDirButton").addEventListener("touchstart",app.fileDirectoryListing);            
     app.getId("#clearContentButton").addEventListener("touchstart",app.clearContent);            
-    app.getId("#getGPSButton").addEventListener("touchstart",app.getGPS);            
+    app.getId("#getGPSButton").addEventListener("click",app.getGPS);            
     app.getId("#getCameraButton").addEventListener("touchstart",app.getCamera);            
     app.getId("#nativeAlertButton").addEventListener("click",app.nativeAlert);            
     app.getId("#saveDataButton").addEventListener("click",app.saveLocalData);            
@@ -179,7 +201,8 @@ var app = {
     app.getId("#showDataButton").addEventListener("click",app.showLocalData);            
     app.getId("#submitDataButton").addEventListener("click",app.submitLocalData);            
     app.getId("#testDataButton").addEventListener("click",app.testData);            
-    app.getId("#fileUploadButton").addEventListener("click",app.uploadFile);            
+    //app.getId("#fileUploadButton").addEventListener("click",app.uploadFile);            
+    app.getGPS();
   },
   clearContent: function() {
     app.getId("#content").innerHTML = "";
@@ -222,7 +245,7 @@ var app = {
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
-	    var keyStorage = window.localStorage.getItem("prevKeys");
+	    var keyStorage = window.localStorage.getItem("sensor-keys");
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
 			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"";
@@ -230,8 +253,8 @@ var app = {
 			var keyStorage = ""+ app.SESSIONID +"";
 		}	
 		// save session key to key ring
-		window.localStorage.setItem("prevKeys", keyStorage);
-		alert("Test pull of prevKeys: " + keyStorage);
+		window.localStorage.setItem("sensor-keys", keyStorage);
+		alert("Test pull of sensor-keys: " + keyStorage);
 		// add data to session key
 		window.localStorage.setItem(app.SESSIONID, data);
         }, app.showError);
@@ -344,15 +367,15 @@ var app = {
   clearLocalData: function(){
 	    alert("clearData");
 	    window.localStorage.clear();
-	    //window.localStorage.removeItem("prevKeys");
-	    alert("Check: " + window.localStorage.getItem("prevKeys"));
+	    //window.localStorage.removeItem("sensor-keys");
+	    alert("Check: " + window.localStorage.getItem("sensor-keys"));
   },
   // local function for looping through local data a=local or remote,t=save or delete
   getLocalData: function(a,t){
      alert("a: "+a);
      alert("t: "+t);
      var localSave;
-     var prevStorage = window.localStorage.getItem("prevKeys");
+     var prevStorage = window.localStorage.getItem("sensor-keys");
      if (prevStorage != null){
 	     alert("The following session keys are saved " + prevStorage);
 	     var keysArray = prevStorage.split(',');
@@ -371,7 +394,7 @@ var app = {
 		     }
 		     //alert("Read Session: "+ read);
 		     if(a=="remote"){
-			alert(read);
+			//alert(read);
 		     	app.submitRemote(read);
 		     }
 			     //to_submit = read.split(',');
@@ -381,12 +404,13 @@ var app = {
    		alert("a Save: ");
 		return localSave;
 	     }
-	     //window.localStorage.removeItem("prevKeys");
+	     //window.localStorage.removeItem("sensor-keys");
 	     //alert("Unable to submit data");
       }
 
   },
   submitRemote: function(s){
+     alert("s:"+s);
      //function rsubmit(s){
 	var url = 'http://data.sccwrp.org/sensor/load.php';
 	message = $.ajax({
@@ -424,18 +448,23 @@ var app = {
     app.getLocalData("remote","save");
   },
 /* end local storage */
-
   getGPS: function(){
-    alert("GPS");
-    var onSuccess = function(position){
-	    alert("Latitude: "+ position.coords.latitude);
-	    alert("Longitude: "+ position.coords.longitude);
-    };
-    function onError(error){
+    navigator.geolocation.getCurrentPosition(app.getGPSOnSuccess, app.getGPSOnFailure);
+  },
+  getGPSOnSuccess: function(position){
+    //alert("getGPSOnSuccess");
+    //var latlon = position.coords.latitude;
+    //latlon += ",";
+    //latlon += position.coords.longitude;
+    //return latlon;
+    // on device or document ready save device lat/lon to key/value for later user
+    window.localStorage.setItem("current-latitude", position.coords.latitude);	
+    window.localStorage.setItem("current-longitude", position.coords.longitude);	
+    //alert(latlon);
+  },
+  getGPSOnFailure: function(error){
 	alert("code: "+ error.code);
 	alert("message: "+ error.message);
-    }
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
   },
   getCamera: function(){
     alert("Camera");
@@ -468,11 +497,13 @@ var app = {
   },
   testData: function(){
     alert("testData");
-    window.localStorage.setItem("prevKeys", "123456789,234567891");
-    window.localStorage.setItem("123456789", "time=14:34:56,PH=4.5,ORP=234,DO=4.7,EC=211μs,T=89,C=4.5");
-    window.localStorage.setItem("234567891", "time=09:03:23,PH=3.0,ORP=450,DO=5.9,EC=123μs,T=85,C=2.1");
-    var prevStorage = window.localStorage.getItem("prevKeys");
-    alert("Test pull on prevKeys: "+ prevStorage);
+    var latitude = window.localStorage.getItem("current-latitude");
+    var longitude = window.localStorage.getItem("current-longitude");
+    window.localStorage.setItem("sensor-keys", "sensor-keys-123456789,sensor-keys-234567891");
+    window.localStorage.setItem('sensor-keys-123456789', '{"time":"14:34:56","ph":"4.5","orp":"234","do":"4.7","ec":"211μs","temp":"89","color":"4.5","lat":"'+latitude+'","lon":"'+longitude+'"}');
+    window.localStorage.setItem('sensor-keys-234567891', '{"time":"09:03:23","ph":"3.0","orp":"450","do":"5.9","ec":"123μs","temp":"85","color":"2.1","lat":"'+latitude+'","lon":"'+longitude+'"}');
+    var prevStorage = window.localStorage.getItem("sensor-keys");
+    alert("Test pull on sensor-keys: "+ prevStorage);
   },
   onError: function() {
     alert("onError");
