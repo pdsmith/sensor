@@ -9,7 +9,7 @@
   });
   var ActionList = Backbone.Collection.extend({
 	model: Action,
-    	url: 'bluetooth.json',
+    	url: 'data.json',
 	//parse: function(data){
 	  //console.log("parse");
 	  //console.log(data);
