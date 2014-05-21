@@ -1,6 +1,6 @@
 /* interface */
   var Action = Backbone.Model.extend();
-  var Jedi = Backbone.Model.extend();
+  var File = Backbone.Model.extend();
   var Home = Backbone.Model.extend();
   var Sensor = Backbone.Model.extend();
   var HomeList = Backbone.Collection.extend({
@@ -15,9 +15,9 @@
 	  //console.log(data);
 	//}
   });
-  var JediList = Backbone.Collection.extend({
-	model: Jedi,
-    	url: 'jedi.json',
+  var FileList = Backbone.Collection.extend({
+	model: File,
+    	url: 'file.json',
   });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
@@ -141,7 +141,7 @@
   var appRouter = new (Backbone.Router.extend({
   routes: {
 	"action": "action",
-	"jedi": "jedi",
+	"file": "file",
 	"sensor": "sensor",
 	"test": "test"
   },
@@ -152,12 +152,12 @@
 	this.actionListView.render();
 	this.actionList.fetch();
   },
-  jedi: function(){
-	alert("jedi");
-	this.jediList = new JediList();
-	this.jediListView = new SensorListView({collection: this.jediList});
-	this.jediListView.render();
-	this.jediList.fetch();
+  file: function(){
+	alert("file");
+	this.fileList = new FileList();
+	this.fileListView = new ActionListView({collection: this.fileList});
+	this.fileListView.render();
+	this.fileList.fetch();
   },
   sensor: function(){
 	alert("sensor");
