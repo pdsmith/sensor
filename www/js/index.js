@@ -155,8 +155,8 @@
   file: function(){
 	alert("file");
 	this.fileList = new FileList();
-	this.actionListView = new ActionListView({collection: this.fileList});
-	this.actionListView.render();
+	this.fileListView = new SensorListView({collection: this.fileList});
+	this.fileListView.render();
 	this.fileList.fetch();
   },
   sensor: function(){
