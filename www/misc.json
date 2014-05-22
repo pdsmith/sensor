@@ -1,0 +1,44 @@
+[
+  {
+	"title": "Clear Content",
+	"action": "clearContent",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "1"
+  },
+  {
+	"title": "Get Coordinates",
+	"action": "getGPS",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  },
+  {
+	"title": "Native Alert",
+	"action": "nativeAlert",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "3"
+  },
+  {
+	"title": "Send SMS",
+	"action": "sendSMS",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "4"
+  },
+  {
+	"title": "Take Picture",
+	"action": "getCamera",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "5"
+  },
+  {
+	"title": "Test Data",
+	"action": "testData",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "6"
+  }
+]

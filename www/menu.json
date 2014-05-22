@@ -1,23 +1,30 @@
 [
   {
-	"title": "Bluetooth",
+	"title": "Bluetooth Tools",
 	"url": "action",
       	"type": "button",
       	"status": "incomplete",
       	"id": "1"
   },
   {
-	"title": "File",
+	"title": "Storage Utilities",
 	"url": "file",
       	"type": "button",
       	"status": "incomplete",
       	"id": "2"
   },
   {
-	"title": "Sensor",
+	"title": "Sensor Controls",
 	"url": "sensor",
       	"type": "button",
       	"status": "incomplete",
       	"id": "3"
+  },
+  {
+	"title": "Miscellaneous",
+	"url": "misc",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "4"
   }
 ]

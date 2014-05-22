@@ -2,6 +2,7 @@
   var Action = Backbone.Model.extend();
   var File = Backbone.Model.extend();
   var Home = Backbone.Model.extend();
+  var Misc = Backbone.Model.extend();
   var Sensor = Backbone.Model.extend();
   var HomeList = Backbone.Collection.extend({
 	model: Home,
@@ -19,6 +20,10 @@
 	model: File,
     	url: 'file.json',
   });
+  var MiscList = Backbone.Collection.extend({
+	model: Misc,
+    	url: 'misc.json',
+  });
   var SensorList = Backbone.Collection.extend({
 	model: Sensor,
     	url: 'sensor.json',
@@ -35,17 +40,17 @@
 		this.collection.on('reset', this.addOne, this);
 	},
         events: {
-		'click .choice' : 'showMenu'
+		'click #choice' : 'showMenu'
 	},
         showMenu: function(e){
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
-		alert("showMenu: "+id);
+		//alert("showMenu: "+id);
 		//var item = this.collection.get(id);
 		//var name = item.get("title");
 		//alert(name);
 		appRouter.navigate(id, true);
-		alert(e.currentTarget);
+		//alert(e.currentTarget);
     	},
     	addOne: function(c){
 		var homeListItemView = new HomeListItemView({model: c});
@@ -62,15 +67,15 @@
 		this.collection.on('reset', this.addOne, this);
 	},
     	addOne: function(c){
-		alert("addOne"+c);
+		//alert("addOne"+c);
 		console.log("addOne"+c);
 		var actionListItemView = new ActionListItemView({model: c});
 		actionListItemView.render();
 	},
         render: function(){
-		alert("ActionListView"+ this.collection);
+		//alert("ActionListView"+ this.collection);
 		console.log("ActionListView"+ this.collection);
-		//$(this.el).html("");
+		$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -99,30 +104,64 @@
     	template: _.template($('#menu-template').html()),
 	render: function(eventName){
 		$(this.el).append(this.template(this.model.toJSON()));
+		$('#menu').trigger("create");
 		return this;
 	}
   });
   var ActionListItemView = Backbone.View.extend({
 	el: '#menu',
     	template: _.template($('#action-template').html()),
+	initialize: function(){
+		$(this.el).unbind("click");
+	},
         events: {
 		'click .ui-btn' : 'showAction'
 	},
         showAction: function(e){
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
-		alert("showAction: "+id);
+		//alert("showAction: "+id);
 		//app.blueConnect();
 		//app.""+id+"";
 		switch(id) {
+		  case "blueConnect":
+       			app.blueConnect();
+    		  break;
+		  case "blueData":
+       			app.blueData();
+    		  break;
+		  case "clearContent":
+       			app.clearContent();
+    		  break;
+		  case "clearLocalData":
+       			app.clearLocalData();
+    		  break;
 		  case "fileCreate":
        			app.fileCreate();
+    		  break;
+		  case "getCamera":
+       			app.getCamera();
+    		  break;
+		  case "getGPS":
+       			app.getGPS();
+    		  break;
+		  case "nativeAlert":
+       			app.nativeAlert();
+    		  break;
+		  case "saveLocalData":
+       			app.saveLocalData();
+    		  break;
+		  case "sendSMS":
+       			app.sendSMS();
+    		  break;
+		  case "testData":
+       			app.testData();
     		  break;
 		}
 		//app["blueConnect"]();
 	},
 	render: function(eventName){
-		alert("ActionListItemView");
+		//alert("ActionListItemView");
 		$(this.el).append(this.template(this.model.toJSON()));
 		//app.getId("#blueConnect").addEventListener("click",app.blueConnect);
 		return this;
@@ -137,30 +176,36 @@
 		return this;
 	}
   });
-
   var appRouter = new (Backbone.Router.extend({
   routes: {
 	"action": "action",
 	"file": "file",
-	"sensor": "sensor",
-	"test": "test"
+	"misc": "misc",
+	"sensor": "sensor"
   },
   action: function(){
-	alert("action");
+	//alert("action");
 	this.actionList = new ActionList();
 	this.actionListView = new ActionListView({collection: this.actionList});
 	this.actionListView.render();
 	this.actionList.fetch();
   },
   file: function(){
-	alert("file");
+	//alert("file");
 	this.fileList = new FileList();
 	this.fileListView = new ActionListView({collection: this.fileList});
 	this.fileListView.render();
 	this.fileList.fetch();
   },
+  misc: function(){
+	//alert("misc");
+	this.miscList = new MiscList();
+	this.miscListView = new ActionListView({collection: this.miscList});
+	this.miscListView.render();
+	this.miscList.fetch();
+  },
   sensor: function(){
-	alert("sensor");
+	//alert("sensor");
 	this.sensorList = new SensorList();
 	this.sensorListView = new SensorListView({collection: this.sensorList});
 	this.sensorListView.render();
@@ -189,18 +234,18 @@ var app = {
   bindEvents: function(){
     //app.getId("#blueConnect").addEventListener("touchstart",app.blueConnect);         
     //app.getId("#blueData").addEventListener("touchstart",app.blueData);         
-    app.getId("#clearDataButton").addEventListener("click",app.clearLocalData);         
+    //app.getId("#clearDataButton").addEventListener("click",app.clearLocalData);         
     //app.getId("#fileCreateButton").addEventListener("touchstart",app.fileCreate);            
     //app.getId("#fileDirButton").addEventListener("touchstart",app.fileDirectoryListing);            
-    app.getId("#clearContentButton").addEventListener("touchstart",app.clearContent);            
-    app.getId("#getGPSButton").addEventListener("click",app.getGPS);            
-    app.getId("#getCameraButton").addEventListener("touchstart",app.getCamera);            
-    app.getId("#nativeAlertButton").addEventListener("click",app.nativeAlert);            
-    app.getId("#saveDataButton").addEventListener("click",app.saveLocalData);            
-    app.getId("#sendSMSButton").addEventListener("click",app.sendSMS);            
-    app.getId("#showDataButton").addEventListener("click",app.showLocalData);            
-    app.getId("#submitDataButton").addEventListener("click",app.submitLocalData);            
-    app.getId("#testDataButton").addEventListener("click",app.testData);            
+    //app.getId("#clearContentButton").addEventListener("touchstart",app.clearContent);            
+    //app.getId("#getGPSButton").addEventListener("click",app.getGPS);            
+    //app.getId("#getCameraButton").addEventListener("touchstart",app.getCamera);            
+    //app.getId("#nativeAlertButton").addEventListener("click",app.nativeAlert);            
+    //app.getId("#saveDataButton").addEventListener("click",app.saveLocalData);            
+    //app.getId("#sendSMSButton").addEventListener("click",app.sendSMS);            
+    //app.getId("#showDataButton").addEventListener("click",app.showLocalData);            
+    //app.getId("#submitDataButton").addEventListener("click",app.submitLocalData);            
+    //app.getId("#testDataButton").addEventListener("click",app.testData);            
     //app.getId("#fileUploadButton").addEventListener("click",app.uploadFile);            
     //app.getGPS(); -- move to deviceREady
   },

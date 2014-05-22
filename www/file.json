@@ -1,30 +1,51 @@
 [
   {
-	"title": "Create File",
-	"action": "fileCreateButton",
+	"title": "Clear Local DB",
+	"action": "clearLocalData",
       	"type": "button",
       	"status": "incomplete",
       	"id": "1"
   },
   {
-	"title": "Save Local to File",
-	"action": "fileSaveButton",
+	"title": "Create Test File",
+	"action": "fileCreate",
       	"type": "button",
       	"status": "incomplete",
       	"id": "2"
   },
   {
-	"title": "Show Directory Contents",
-	"action": "fileDirButton",
+	"title": "Save Local DB to File",
+	"action": "saveLocalData",
       	"type": "button",
       	"status": "incomplete",
       	"id": "3"
   },
   {
-	"title": "Upload File to SCCWRP",
-	"action": "fileUploadButton",
+	"title": "Show Local DB",
+	"action": "showLocalData",
       	"type": "button",
       	"status": "incomplete",
       	"id": "4"
+  },
+  {
+	"title": "Show File Directory",
+	"action": "fileDirectoryListing",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "5"
+  },
+  {
+	"title": "Sync Local DB to SCCWRP",
+	"action": "submitLocalData",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "6"
+  },
+  {
+	"title": "Upload File to SCCWRP",
+	"action": "uploadFile",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "7"
   }
 ]
