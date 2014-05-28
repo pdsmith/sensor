@@ -357,6 +357,7 @@ var app = {
   // file writing f=file,s=string
   fileAppend: function(f) {
     alert("fileAppend");
+    alert(f.fullPath);
     f.createWriter(function(writerOb) {
         writerOb.onwrite=function() {
             app.showContent("Done writing to file.<p/>");
@@ -378,7 +379,7 @@ var app = {
   uploadFile: function(e) {
     alert("uploadFile to SCCWRP");
     //var fileURL = "cdvfile://localhost/test.txt";
-    var fileURL = "cdvfile://localhost/persistent/test.txt";
+    var fileURL = "file:///storage/sdcard0/test.txt";
     function win(r){
 	    //alert(r);
             alert("Code = " + r.responseCode);
@@ -395,8 +396,7 @@ var app = {
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    //options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
-    options.fileName = fileURL;
+    options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
     options.mimeType = "text/plain";
     
     var headers={'headerParam':'headerValue'};
