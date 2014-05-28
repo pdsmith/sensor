@@ -153,6 +153,12 @@
 		  case "sendSMS":
        			app.sendSMS();
     		  break;
+		  case "showLocalData":
+       			app.showLocalData();
+    		  break;
+		  case "submitLocalData":
+       			app.submitLocalData();
+    		  break;
 		  case "testData":
        			app.testData();
     		  break;
