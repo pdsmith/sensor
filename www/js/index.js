@@ -378,7 +378,7 @@ var app = {
   uploadFile: function(e) {
     alert("uploadFile to SCCWRP");
     //var fileURL = "cdvfile://localhost/test.txt";
-    var fileURL = "file://test.txt";
+    var fileURL = "test.txt";
     function win(r){
 	    //alert(r);
             alert("Code = " + r.responseCode);
@@ -395,7 +395,8 @@ var app = {
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
+    //options.fileName = fileURL.substr(fileURL.lastIndexOf('/')+1);
+    options.fileName = fileURL;
     options.mimeType = "text/plain";
     
     var headers={'headerParam':'headerValue'};
