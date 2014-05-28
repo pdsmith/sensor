@@ -378,7 +378,7 @@ var app = {
   uploadFile: function(e) {
     alert("uploadFile to SCCWRP");
     //var fileURL = "cdvfile://localhost/test.txt";
-    var fileURL = "test.txt";
+    var fileURL = "file://test.txt";
     function win(r){
 	    //alert(r);
             alert("Code = " + r.responseCode);
@@ -386,7 +386,9 @@ var app = {
             alert("Sent = " + r.bytesSent);
     }
     function fail(error){
-	alert(error);
+    	alert("An error has occurred: Code = " + error.code);
+    	alert("upload error source " + error.source);
+    	alert("upload error target " + error.target);
     }
 
     var uri = encodeURI("http://data.sccwrp.org/sensor/upload.php");
