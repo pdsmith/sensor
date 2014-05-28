@@ -380,7 +380,10 @@ var app = {
     //var fileURL = "cdvfile://localhost/test.txt";
     var fileURL = "file://test.txt";
     function win(r){
-	alert(r);
+	    //alert(r);
+            alert("Code = " + r.responseCode);
+            alert("Response = " + r.response);
+            alert("Sent = " + r.bytesSent);
     }
     function fail(error){
 	alert(error);
