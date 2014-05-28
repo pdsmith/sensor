@@ -1,14 +1,44 @@
 [
   {
-	"title": "Temperature",
+	"title": "Color",
+	"action": "sensorControl",
       	"type": "button",
       	"status": "incomplete",
       	"id": "1"
   },
   {
-	"title": "Color",
+	"title": "DO",
+	"action": "sensorControl",
       	"type": "button",
       	"status": "incomplete",
       	"id": "2"
+  },
+  {
+	"title": "EC",
+	"action": "sensorControl",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "3"
+  },
+  {
+	"title": "PH",
+	"action": "sensorControl",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "4"
+  },
+  {
+	"title": "ORP",
+	"action": "sensorControl",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "5"
+  },
+  {
+	"title": "Temperature",
+	"action": "sensorControl",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "6"
   }
 ]

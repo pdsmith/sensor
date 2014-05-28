@@ -61,7 +61,7 @@
 	}
   });
   var ActionListView = Backbone.View.extend({
-	el: '#menu',
+	el: '#submenu',
 	initialize: function(){
 		this.collection.on('add', this.addOne, this);
 		this.collection.on('reset', this.addOne, this);
@@ -80,22 +80,17 @@
 	}
   });
   var SensorListView = Backbone.View.extend({
-	el: '#menu',
+	el: '#submenu',
 	initialize: function(){
 		this.collection.on('add', this.addOne, this);
 		this.collection.on('reset', this.addOne, this);
 	},
     	addOne: function(c){
-		alert("addOne"+c);
-		console.log("addOne"+c);
 		var sensorListItemView = new SensorListItemView({model: c});
 		sensorListItemView.render();
 	},
         render: function(){
-		alert("SensorListView"+ this.collection);
-		console.log("SensorListView");
-		console.log(this.collection);
-		//$(this.el).html("");
+		$(this.el).html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -109,7 +104,7 @@
 	}
   });
   var ActionListItemView = Backbone.View.extend({
-	el: '#menu',
+	el: '#submenu',
     	template: _.template($('#action-template').html()),
 	initialize: function(){
 		$(this.el).unbind("click");
@@ -118,6 +113,7 @@
 		'click .ui-btn' : 'showAction'
 	},
         showAction: function(e){
+		//alert("test");
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
 		//alert("showAction: "+id);
@@ -163,16 +159,16 @@
 	render: function(eventName){
 		//alert("ActionListItemView");
 		$(this.el).append(this.template(this.model.toJSON()));
-		//app.getId("#blueConnect").addEventListener("click",app.blueConnect);
+		$('#submenu').trigger("create");
 		return this;
 	}
   });
   var SensorListItemView = Backbone.View.extend({
-	el: '#menu',
+	el: '#submenu',
     	template: _.template($('#sensor-template').html()),
 	render: function(eventName){
-		alert("SensorListItemView");
 		$(this.el).append(this.template(this.model.toJSON()));
+		$('#submenu').trigger("create");
 		return this;
 	}
   });
