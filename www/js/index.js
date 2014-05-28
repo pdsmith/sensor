@@ -135,6 +135,9 @@
 		  case "fileCreate":
        			app.fileCreate();
     		  break;
+		  case "fileDirectoryListing":
+       			app.fileDirectoryListing();
+    		  break;
 		  case "getCamera":
        			app.getCamera();
     		  break;
@@ -152,6 +155,9 @@
     		  break;
 		  case "testData":
        			app.testData();
+    		  break;
+		  case "uploadFile":
+       			app.uploadFile();
     		  break;
 		}
 		//app["blueConnect"]();
@@ -371,7 +377,8 @@ var app = {
   },
   uploadFile: function(e) {
     alert("uploadFile to SCCWRP");
-    var fileURL = "cdvfile://localhost/test.txt";
+    //var fileURL = "cdvfile://localhost/test.txt";
+    var fileURL = "file://test.txt";
     function win(r){
 	alert(r);
     }
