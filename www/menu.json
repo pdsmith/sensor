@@ -4,6 +4,8 @@
 	"url": "action",
       	"type": "button",
       	"status": "incomplete",
+	"order": "a",
+	"icon": "signal",
       	"id": "1"
   },
   {
@@ -11,6 +13,8 @@
 	"url": "file",
       	"type": "button",
       	"status": "incomplete",
+	"order": "b",
+	"icon": "cloud",
       	"id": "2"
   },
   {
@@ -18,6 +22,8 @@
 	"url": "sensor",
       	"type": "button",
       	"status": "incomplete",
+	"order": "c",
+	"icon": "flask",
       	"id": "3"
   },
   {
@@ -25,6 +31,8 @@
 	"url": "misc",
       	"type": "button",
       	"status": "incomplete",
+	"order": "d",
+	"icon": "linux",
       	"id": "4"
   }
 ]
