@@ -3,15 +3,13 @@
   <head>
       <title>Sensor</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <!-- <link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.2/css/themes/default/jquery.mobile-1.4.2.min.css"/> // -->
+        <link rel="stylesheet" href="http://demos.jquerymobile.com/1.4.2/css/themes/default/jquery.mobile-1.4.2.min.css"/>
         <link rel="stylesheet" href="css/font-awesome.min.css" />
-        <link rel="stylesheet" href="css/jquerymobile.css" />
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.css" />
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.dark.css"  id='jQMnDTheme' />
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.green.css" id='jQMnDColor' />
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <!-- <script src="http://demos.jquerymobile.com/1.4.2/js/jquery.mobile-1.4.2.min.js"></script> // -->
-	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+        <script src="http://demos.jquerymobile.com/1.4.2/js/jquery.mobile-1.4.2.min.js"></script> 
     </head>
   <body onload="init();" class="ui-mobile-viewport ui-overlay-b">
     <div data-role="page" data-theme="b">
@@ -41,13 +39,24 @@
 		<label for="checkbox-1bb"><span class="ui-btn-inner"><span class="ui-btn-text">Doritos</span></span>	
 	    </div>
 	  </div> 
-	  <li data-role="fieldcontain>
-		<label for="flip-1" id="flip-1-label" class="ui-slider">Flip switch:</label>
-		<select name="flip-1" id="flip-1" data-role="slider" class="ui-slider-switch">
+	  <div data-role="fieldcontain">
+	    <ul>
+	      <li>
+		<label for="flip-1">Color</label>
+		<select name="flip-1" id="flip-1" data-role="flipswitch" data-theme="b">
                             <option value="off">Off</option>
                             <option value="on">On</option>
                 </select>
-	 </li>
+	      </li>
+	      <li>	
+		<label for="flip-2">Temperature</label>
+		<select name="flip-2" id="flip-2" data-role="flipswitch" data-theme="b">
+                            <option value="off">Off</option>
+                            <option value="on">On</option>
+                </select>
+	      </li>
+
+	    </div>	
 	 <li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="false" data-iconpos="right" data-theme="b" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-b">
 	  <div class="ui-btn-inner ui-li">
 	    <div class="ui-btn-text">
@@ -59,6 +68,12 @@
 	  </div>
 	 </li>
 	</div>
+	<li class="ui-li">
+  	  <fieldset class="ui-grid-a">
+          <div class="ui-block-a"><div data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="b" data-disabled="false" class="ui-submit ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b" aria-disabled="false"><span class="ui-btn-inner"><button type="submit" data-theme="b" class="ui-btn-hidden" data-disabled="false">Cancel</button></div></div>
+          <div class="ui-block-b"><div data-corners="true" data-shadow="true" data-iconshadow="true" data-theme="b" data-disabled="false" class="ui-submit ui-btn ui-shadow ui-btn-corner-all ui-btn-up-b" aria-disabled="false"><span class="ui-btn-inner"><button type="submit" data-theme="b" class="ui-btn-hidden" data-disabled="false">Submit</button></div></div>
+  	  </fieldset>
+	</li>
     </div> <!-- close page // -->
   </body>
 </html>

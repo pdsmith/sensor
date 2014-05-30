@@ -40,7 +40,7 @@
 		this.collection.on('reset', this.addOne, this);
 	},
         events: {
-		'click #choice' : 'showMenu'
+		'click #menu-choice-li' : 'showMenu'
 	},
         showMenu: function(e){
 		e.preventDefault();
@@ -113,12 +113,9 @@
 		'click .ui-btn' : 'showAction'
 	},
         showAction: function(e){
-		//alert("test");
 		e.preventDefault();
 		var id = $(e.currentTarget).data("id");
 		//alert("showAction: "+id);
-		//app.blueConnect();
-		//app.""+id+"";
 		switch(id) {
 		  case "blueConnect":
        			app.blueConnect();
@@ -176,11 +173,25 @@
 	}
   });
   var SensorListItemView = Backbone.View.extend({
-	el: '#submenu',
+	el: '#sensormenu',
     	template: _.template($('#sensor-template').html()),
+	initialize: function(){
+		$(this.el).unbind("click");
+	},
+        events: {
+		'click .ui-flipswitch' : 'showSensor'
+	},
+        showSensor: function(e){
+		e.preventDefault();
+		alert($(event.target).id+" and "+$(event.target).attr('class'));
+		myparent = $(event.target).parent();
+		alert(myparent.id);
+		//var id = $(e.currentTarget).data("id");
+		//alert("showAction: "+id);
+	},
 	render: function(eventName){
 		$(this.el).append(this.template(this.model.toJSON()));
-		$('#submenu').trigger("create");
+		$('#sensormenu').trigger("create");
 		return this;
 	}
   });
