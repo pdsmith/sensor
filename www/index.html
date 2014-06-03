@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="css/jquerymobile.nativedroid.color.green.css" id='jQMnDColor' />
 	<style type="text/css">
 	  .content { color: white; text-color: red;}
+	  #sensormenu { width: 50%; margin: 0 auto;}
 	</style>
 	<script type="text/javascript" src="phonegap.js"></script>
 	<script type="text/template" id="action-template">
@@ -35,12 +36,13 @@
 			<li><%= title %></li>
 	</script>
 	<script type="text/template" id="sensor-template">
+	  <li><%= title %></li>
 	  <li>
-		<label for="flip-<%= id %>"><%= title %></label>
-		<select name="flip-<%= id %>" data-id="<%= id %>" data-role="flipswitch" data-theme="b">
-                            <option data-id="flip-<%= id %>-off" value="off">Off</option>
-                            <option data-id="flip-<%= id %>-on" value="on">On</option>
-                </select>
+<div class="ui-flipswitch ui-shadow-inset ui-bar-inherit">
+  <span tabindex="1" data-id="<%= id %>-on" class="ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit">On</span>
+  <span class="ui-flipswitch-off" data-id="<%= id %>-off">Off</span>
+  <input type="checkbox" data-role="flipswitch" data-id="<%= id %>" data-enhanced="true" data-corners="false" name="flip-checkbox" class="ui-flipswitch-input">
+</div>
 	  </li>
 	</script>
 	<script type="text/template" id="menu-template">

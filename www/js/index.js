@@ -76,6 +76,7 @@
 		//alert("ActionListView"+ this.collection);
 		console.log("ActionListView"+ this.collection);
 		$(this.el).html("");
+		$('#sensormenu').html("");
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -160,6 +161,46 @@
        			app.testData();
     		  break;
 		  case "uploadFile":
+		  case "blueData":
+       			app.blueData();
+    		  break;
+		  case "clearContent":
+       			app.clearContent();
+    		  break;
+		  case "clearLocalData":
+       			app.clearLocalData();
+    		  break;
+		  case "fileCreate":
+       			app.fileCreate();
+    		  break;
+		  case "fileDirectoryListing":
+       			app.fileDirectoryListing();
+    		  break;
+		  case "getCamera":
+       			app.getCamera();
+    		  break;
+		  case "getGPS":
+       			app.getGPS();
+    		  break;
+		  case "nativeAlert":
+       			app.nativeAlert();
+    		  break;
+		  case "saveLocalData":
+       			app.saveLocalData();
+    		  break;
+		  case "sendSMS":
+       			app.sendSMS();
+    		  break;
+		  case "showLocalData":
+       			app.showLocalData();
+    		  break;
+		  case "submitLocalData":
+       			app.submitLocalData();
+    		  break;
+		  case "testData":
+       			app.testData();
+    		  break;
+		  case "uploadFile":
        			app.uploadFile();
     		  break;
 		}
@@ -176,18 +217,21 @@
 	el: '#sensormenu',
     	template: _.template($('#sensor-template').html()),
 	initialize: function(){
-		$(this.el).unbind("click");
+		$(this.el).unbind("vclick");
 	},
         events: {
-		'click .ui-flipswitch' : 'showSensor'
+		'vclick .ui-flipswitch' : 'showSensor'
 	},
         showSensor: function(e){
 		e.preventDefault();
-		alert($(event.target).id+" and "+$(event.target).attr('class'));
-		myparent = $(event.target).parent();
-		alert(myparent.id);
+		//$(event.target).attr('class') gets ui-flipswitch-off when clicking off
+		var id = $(e.target).data("id");
+		alert(id+" and "+$(event.target).attr('class'));
+		//myparent = $(event.target).parent();
+		//alert(myparent.id);
 		//var id = $(e.currentTarget).data("id");
 		//alert("showAction: "+id);
+                app.blueControl(id);
 	},
 	render: function(eventName){
 		$(this.el).append(this.template(this.model.toJSON()));
@@ -337,6 +381,9 @@ var app = {
 	    alert("getData Initiated");
 	    var text = "g\r";
 	    bluetoothSerial.write(text, function(){ alert("getData Succeeded"); }, function(){ alert("getData Failed"); });
+  },
+  blueControl: function(e){
+	alert("blueControl: "+e);
   },
   showError: function(error) {
         app.showContent(error);
