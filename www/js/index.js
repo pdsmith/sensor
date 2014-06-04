@@ -40,12 +40,20 @@
 		this.collection.on('reset', this.addOne, this);
 	},
         events: {
-		'click #menu-choice-li' : 'showMenu'
+		'click .ui-btn' : 'showMenu'
 	},
         showMenu: function(e){
 		e.preventDefault();
+                //alert($(event.target).attr('class'));
+                myparent = $(event.target).parent();
+		//console.log(e.currentTarget.child);
+                //alert(myparent.attr('class'));
+		//myparent.removeClass('ui-state-active');
+		var x  = e.currentTarget;
 		var id = $(e.currentTarget).data("id");
-		//alert("showMenu: "+id);
+		alert("showMenu: "+id);
+		alert(x.id);
+		$("#menu-action").removeClass('ui-state-active ui-state-hover');
 		//var item = this.collection.get(id);
 		//var name = item.get("title");
 		//alert(name);
@@ -100,7 +108,7 @@
     	template: _.template($('#menu-template').html()),
 	render: function(eventName){
 		$(this.el).append(this.template(this.model.toJSON()));
-		$('#menu').trigger("create");
+		$(this.el).trigger("create");
 		return this;
 	}
   });
