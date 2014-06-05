@@ -44,6 +44,8 @@
 	},
         showMenu: function(e){
 		e.preventDefault();
+		//e.removeClass("ui-btn-active");
+		$('.ui-btn').removeClass($.mobile.activeBtnClass);
                 //alert($(event.target).attr('class'));
                 myparent = $(event.target).parent();
 		//console.log(e.currentTarget.child);
@@ -51,9 +53,9 @@
 		//myparent.removeClass('ui-state-active');
 		var x  = e.currentTarget;
 		var id = $(e.currentTarget).data("id");
-		alert("showMenu: "+id);
-		alert(x.id);
-		$("#menu-action").removeClass('ui-state-active ui-state-hover');
+		//alert("showMenu: "+id);
+		//alert(x.id);
+		$(".ui-btn").removeClass('ui-state-active ui-state-hover');
 		//var item = this.collection.get(id);
 		//var name = item.get("title");
 		//alert(name);
@@ -234,7 +236,7 @@
 		e.preventDefault();
 		//$(event.target).attr('class') gets ui-flipswitch-off when clicking off
 		var id = $(e.target).data("id");
-		alert(id+" and "+$(event.target).attr('class'));
+		//alert(id+" and "+$(event.target).attr('class'));
 		//myparent = $(event.target).parent();
 		//alert(myparent.id);
 		//var id = $(e.currentTarget).data("id");
@@ -358,6 +360,7 @@ var app = {
 	    //var app.SESSIONID = +new Date;
             app.showContent(data);
 	    alert(data);
+	    alert(data.id);
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
@@ -392,6 +395,18 @@ var app = {
   },
   blueControl: function(e){
 	alert("blueControl: "+e);
+	var idSetting = e.split('-');
+	// split e variable on id - setting
+        switch(idSetting[1]) {
+          case "on":
+	      alert("On for: "+idSetting[0]);
+       	      //app.blueOn(id);
+	  break;
+	  case "off":
+	      alert("Off for: "+idSetting[0]);
+       	      //app.blueOff(id);
+	  break;
+	}
   },
   showError: function(error) {
         app.showContent(error);
@@ -487,8 +502,10 @@ var app = {
 /* end file storage */
 
 /* start local storage */
-  dataSyncCheck: function(){
-	alert("code for dataSyncCheck");
+  dataSyncCheck: function(di,dt){
+	// use id and timestamp to check against check.php
+	// if successfull - remove local timestamp
+	alert("Local Timestamp Record to Delete:"+dt);
   },
   clearLocalData: function(){
 	    alert("clearData");
@@ -513,6 +530,7 @@ var app = {
 	     for(var i=0; i<loopNum; i++){
 		     //alert("Loop number " +  i + "");
 		     currentKey = keysArray.pop();
+		     alert(currentKey);
 		     var read =  window.localStorage.getItem(currentKey);
 		     if(a=="local"){
      			//alert("a: "+a);
@@ -536,7 +554,7 @@ var app = {
 
   },
   submitRemote: function(s){
-     alert("s:"+s);
+     //alert("s:"+s);
      //function rsubmit(s){
 	var url = 'http://data.sccwrp.org/sensor/load.php';
 	message = $.ajax({
@@ -552,7 +570,9 @@ var app = {
 		}, 
 		success: function(data) {
 			alert("status:"+data.submit);
-			app.dataSyncCheck();
+			alert("id:"+data.id);
+			alert("time:"+data.time);
+			app.dataSyncCheck(data.id,data.time);
 		},
 		complete: function(data) {
 			//alert("complete:"+data.key);
@@ -623,13 +643,18 @@ var app = {
   },
   testData: function(){
     alert("testData");
+    var prevStorage = window.localStorage.getItem("sensor-keys");
     var latitude = window.localStorage.getItem("current-latitude");
     var longitude = window.localStorage.getItem("current-longitude");
-    window.localStorage.setItem("sensor-keys", "sensor-keys-123456789,sensor-keys-234567891");
-    window.localStorage.setItem('sensor-keys-123456789', '{"time":"14:34:56","ph":"4.5","orp":"234","do":"4.7","ec":"211μs","temp":"89","color":"4.5","lat":"'+latitude+'","lon":"'+longitude+'"}');
-    window.localStorage.setItem('sensor-keys-234567891', '{"time":"09:03:23","ph":"3.0","orp":"450","do":"5.9","ec":"123μs","temp":"85","color":"2.1","lat":"'+latitude+'","lon":"'+longitude+'"}');
-    var prevStorage = window.localStorage.getItem("sensor-keys");
-    alert("Test pull on sensor-keys: "+ prevStorage);
+    if (prevStorage != null){
+    	window.localStorage.setItem("sensor-keys", ""+ prevStorage +",sensor-keys-"+ app.SESSIONID +"-1,sensor-keys-"+ app.SESSIONID +"-2");
+    } else {
+    	window.localStorage.setItem("sensor-keys","sensor-keys-"+ app.SESSIONID +"-1,sensor-keys-"+ app.SESSIONID +"-2");
+    } 
+    window.localStorage.setItem('sensor-keys-'+ app.SESSIONID +'-1', '{"id":"1","time":"14:34:56","ph":"4.5","orp":"234","do":"4.7","ec":"211μs","temp":"89","color":"4.5","lat":"'+latitude+'","lon":"'+longitude+'"}');
+    window.localStorage.setItem('sensor-keys-'+ app.SESSIONID +'-2', '{"id":"2","time":"09:03:23","ph":"3.0","orp":"450","do":"5.9","ec":"123μs","temp":"85","color":"2.1","lat":"'+latitude+'","lon":"'+longitude+'"}');
+    var currentStorage = window.localStorage.getItem("sensor-keys");
+    alert("Test pull on sensor-keys: "+ currentStorage);
   },
   onError: function() {
     alert("onError");
