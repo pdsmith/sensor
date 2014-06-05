@@ -356,13 +356,12 @@ var app = {
   openPort: function(){
         blueConnect.innerHTML = "Disconnect";
 	var dataString;
-	var fixString;
         bluetoothSerial.subscribe('|', function (data) {
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
-	    fixString = data.slice(0,-1);
-	    var dataString = JSON.stringify(fixString);
+	    dataString = data.slice(0,-1);
             app.showContent(dataString);
+	    alert(dataString);
 	    alert(dataString.id);
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
