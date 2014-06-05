@@ -356,26 +356,29 @@ var app = {
   openPort: function(){
         blueConnect.innerHTML = "Disconnect";
 	var dataString;
+	var fixString;
         bluetoothSerial.subscribe('|', function (data) {
 	    //var app.SESSIONID = +new Date;
-            app.showContent(data);
-	    alert(data);
-	    alert(data.id);
+	    // remove | pipe ending
+	    fixString = data.slice(0,-1);
+	    var dataString = JSON.stringify(fixString);
+            app.showContent(dataString);
+	    alert(dataString.id);
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
 	    var keyStorage = window.localStorage.getItem("sensor-keys");
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
-			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ data.id +"";
+			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ dataString.id +"";
 		} else {
-			var keyStorage = ""+ app.SESSIONID +"-"+ data.id +"";
+			var keyStorage = ""+ app.SESSIONID +"-"+ dataString.id +"";
 		}	
 		// save session key to key ring
 		window.localStorage.setItem("sensor-keys", keyStorage);
 		alert("Test pull of sensor-keys: " + keyStorage);
 		// add data to session key
-		window.localStorage.setItem(""+ app.SESSIONID +"-"+ data.id +"" , data);
+		window.localStorage.setItem(""+ app.SESSIONID +"-"+ dataString.id +"" , data);
         }, app.showError);
   },
   closePort: function(){
