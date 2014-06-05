@@ -367,15 +367,15 @@ var app = {
 	    var keyStorage = window.localStorage.getItem("sensor-keys");
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
-			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"";
+			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ data.id +"";
 		} else {
-			var keyStorage = ""+ app.SESSIONID +"";
+			var keyStorage = ""+ app.SESSIONID +"-"+ data.id +"";
 		}	
 		// save session key to key ring
 		window.localStorage.setItem("sensor-keys", keyStorage);
 		alert("Test pull of sensor-keys: " + keyStorage);
 		// add data to session key
-		window.localStorage.setItem(app.SESSIONID, data);
+		window.localStorage.setItem(""+ app.SESSIONID +"-"+ data.id +"" , data);
         }, app.showError);
   },
   closePort: function(){
