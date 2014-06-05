@@ -356,7 +356,7 @@ var app = {
   openPort: function(){
         blueConnect.innerHTML = "Disconnect";
 	var dataString;
-        bluetoothSerial.subscribe(':', function (data) {
+        bluetoothSerial.subscribe('|', function (data) {
 	    //var app.SESSIONID = +new Date;
             app.showContent(data);
 	    alert(data);
