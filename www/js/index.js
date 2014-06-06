@@ -363,22 +363,17 @@ var app = {
         blueConnect.innerHTML = "Disconnect";
 	var dataString;
 	var jsonString;
-	var res_fixed;
         bluetoothSerial.subscribe('|', function (data) {
 	  var res = data.charAt(0);
-	  //if res is empty
-	  if(res){
-		res_fixed = res.slice(0,1);	
-	  }
-	  //alert(data);
-	  alert(res_fixed);
-	  if( res_fixed == "{" ){
+	  //if res is empty remove first and last characters
+	  if(!res || 0 === res.length){
+		jsonString = data.substring(1, data.length-1);		
+	  } 
 	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
-	  alert(data);
+	  alert(jsonString);
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
-	    jsonString = data.slice(0,-1);
 	    //var jsonString = '{"result":true,"count":1}';
 	    //var jsonString = eval("(function(){return " + dataString + ";})()");
 	    //alert(jsonString.id);
@@ -404,7 +399,6 @@ var app = {
 	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
 	    //var parsedJSON = $.parseJSON(jsonString); 
 	    //alert(parsedJSON.id);	
-	  }
         }, app.showError);
   },
   closePort: function(){
