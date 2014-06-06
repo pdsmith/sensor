@@ -363,11 +363,16 @@ var app = {
         blueConnect.innerHTML = "Disconnect";
 	var dataString;
 	var jsonString;
+	var res_fixed;
         bluetoothSerial.subscribe('|', function (data) {
 	  var res = data.charAt(0);
-	  alert(data);
-	  alert(res);
-	  if( res == "{" ){
+	  //if res is empty
+	  if(res){
+		res_fixed = res.slice(0,1);	
+	  }
+	  //alert(data);
+	  alert(res_fixed);
+	  if( res_fixed == "{" ){
 	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
 	  alert(data);
