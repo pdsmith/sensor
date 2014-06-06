@@ -365,6 +365,8 @@ var app = {
 	var jsonString;
         bluetoothSerial.subscribe('|', function (data) {
 	  var res = data.charAt(0);
+	  console.log(data);
+	  alert(res);
 	  if( res == "{" ){
 	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
