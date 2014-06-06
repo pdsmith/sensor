@@ -364,6 +364,7 @@ var app = {
 	var dataString;
 	var jsonString;
         bluetoothSerial.subscribe('|', function (data) {
+	  if(typeof data != 'undefined'){
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    jsonString = data.slice(0,-1);
@@ -381,14 +382,17 @@ var app = {
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
 			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ jsonString.id +"";
-		} else {
+	    } else {
 			var keyStorage = ""+ app.SESSIONID +"-"+ jsonString.id +"";
-		}	
+	    }	
 		// save session key to key ring
-		window.localStorage.setItem("sensor-keys", keyStorage);
-		alert("Test pull of sensor-keys: " + keyStorage);
-		// add data to session key
-		window.localStorage.setItem(""+ app.SESSIONID +"-"+ jsonString.id +"" , jsonString);
+	    window.localStorage.setItem("sensor-keys", keyStorage);
+	    //alert("Test pull of sensor-keys: " + keyStorage);
+	    // add data to session key
+	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ jsonString.id +"" , jsonString);
+	    var parsedJSON = $.parseJSON(jsonString); 
+	    alert(parsedJSON);	
+	  }
         }, app.showError);
   },
   closePort: function(){
