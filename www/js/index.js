@@ -364,7 +364,9 @@ var app = {
 	var dataString;
 	var jsonString;
         bluetoothSerial.subscribe('|', function (data) {
-	  if(typeof data != 'undefined'){
+	  var dataType = typeof(data);
+	  alert(dataType);
+	  if(data !== 'undefined'){
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    jsonString = data.slice(0,-1);
@@ -390,8 +392,8 @@ var app = {
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
 	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ jsonString.id +"" , jsonString);
-	    var parsedJSON = $.parseJSON(jsonString); 
-	    alert(parsedJSON);	
+	    //var parsedJSON = $.parseJSON(jsonString); 
+	    //alert(parsedJSON);	
 	  }
         }, app.showError);
   },
