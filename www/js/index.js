@@ -364,8 +364,8 @@ var app = {
 	var dataString;
 	var jsonString;
         bluetoothSerial.subscribe('|', function (data) {
-	  var dataType = typeof(data);
-	  alert(dataType);
+	  //var dataType = typeof(data);
+	  //alert(dataType);
 	  if(data !== 'undefined'){
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
