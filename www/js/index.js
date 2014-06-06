@@ -361,7 +361,7 @@ var app = {
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    dataString = data.slice(0,-1);
-	    alert("Before JSON: "+ dataString);
+	    //alert("Before JSON: "+ dataString);
 	    jsonString = JSON.parse(dataString);	
             //app.showContent(jsonString);
 	    alert("After JSON: "+jsonString);
