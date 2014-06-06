@@ -364,6 +364,9 @@ var app = {
 	var dataString;
 	var jsonString;
         bluetoothSerial.subscribe('|', function (data) {
+	  var res = data.charAt(0);
+	  if( res == "{" ){
+	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
 	  //alert(dataType);
 	    //var app.SESSIONID = +new Date;
@@ -380,7 +383,7 @@ var app = {
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
 	    var keyStorage = window.localStorage.getItem("sensor-keys");
-	    var randomNumber = Math.floor(Math.random()*11);
+	    var randomNumber = Math.floor(Math.random()*100);
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
 			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ randomNumber +"";
@@ -392,8 +395,9 @@ var app = {
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
 	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
-	    var parsedJSON = $.parseJSON(jsonString); 
-	    alert(parsedJSON.id);	
+	    //var parsedJSON = $.parseJSON(jsonString); 
+	    //alert(parsedJSON.id);	
+	  }
         }, app.showError);
   },
   closePort: function(){
