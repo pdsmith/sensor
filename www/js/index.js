@@ -361,10 +361,10 @@ var app = {
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    dataString = data.slice(0,-1);
-	    var jsonString = '{"result":true,"count":1}';
-	    var jsonObj = eval("(function(){return " + jsonString + ";})()");
-	    alert(jsonObj.id);
-	    alert(jsonObj.ec);
+	    //var jsonString = '{"result":true,"count":1}';
+	    var jsonString = eval("(function(){return " + dataString + ";})()");
+	    alert(jsonString.id);
+	    alert(jsonString.ec);
 	    //alert("Before JSON: "+ dataString);
             //app.showContent(jsonString);
 	    //alert(jsonString.id);
