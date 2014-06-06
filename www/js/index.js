@@ -366,7 +366,6 @@ var app = {
         bluetoothSerial.subscribe('|', function (data) {
 	  //var dataType = typeof(data);
 	  //alert(dataType);
-	  if(data !== 'undefined'){
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    jsonString = data.slice(0,-1);
@@ -381,20 +380,20 @@ var app = {
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
 	    var keyStorage = window.localStorage.getItem("sensor-keys");
+	    var randomNumber = Math.floor(Math.random()*11);
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
-			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ jsonString.id +"";
+			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ randomNumber +"";
 	    } else {
-			var keyStorage = ""+ app.SESSIONID +"-"+ jsonString.id +"";
+			var keyStorage = ""+ app.SESSIONID +"-"+ randomNumber +"";
 	    }	
 		// save session key to key ring
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
-	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ jsonString.id +"" , jsonString);
-	    //var parsedJSON = $.parseJSON(jsonString); 
-	    //alert(parsedJSON);	
-	  }
+	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
+	    var parsedJSON = $.parseJSON(jsonString); 
+	    alert(parsedJSON.id);	
         }, app.showError);
   },
   closePort: function(){
