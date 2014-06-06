@@ -7,10 +7,17 @@
       	"id": "1"
   },
   {
+	"title": "Clear Data from Arduino",
+	"action": "blueClear",
+      	"type": "button",
+      	"status": "incomplete",
+      	"id": "2"
+  },
+  {
 	"title": "Get Data from Arduino",
 	"action": "blueData",
       	"type": "button",
       	"status": "incomplete",
-      	"id": "2"
+      	"id": "3"
   }
 ]

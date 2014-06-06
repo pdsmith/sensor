@@ -131,6 +131,9 @@
 		  case "blueConnect":
        			app.blueConnect();
     		  break;
+		  case "blueClear":
+       			app.blueClear();
+    		  break;
 		  case "blueData":
        			app.blueData();
     		  break;
@@ -171,6 +174,9 @@
        			app.testData();
     		  break;
 		  case "uploadFile":
+		  case "blueClear":
+       			app.blueClear();
+    		  break;
 		  case "blueData":
        			app.blueData();
     		  break;
@@ -360,11 +366,11 @@ var app = {
         bluetoothSerial.subscribe('|', function (data) {
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
-	    dataString = data.slice(0,-1);
+	    jsonString = data.slice(0,-1);
 	    //var jsonString = '{"result":true,"count":1}';
-	    var jsonString = eval("(function(){return " + dataString + ";})()");
-	    alert(jsonString.id);
-	    alert(jsonString.ec);
+	    //var jsonString = eval("(function(){return " + dataString + ";})()");
+	    //alert(jsonString.id);
+	    //alert(jsonString.ec);
 	    //alert("Before JSON: "+ dataString);
             //app.showContent(jsonString);
 	    //alert(jsonString.id);
@@ -394,6 +400,11 @@ var app = {
                 },
                 app.showError
         );
+  },
+  blueClear: function() {
+	    alert("Clear Arduino");
+	    var text = "c\r";
+	    bluetoothSerial.write(text, function(){ alert("Clear Arduino Succeeded"); }, function(){ alert("Clear Arduino Failed"); });
   },
   blueData: function() {
 	    alert("getData Initiated");
