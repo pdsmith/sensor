@@ -368,7 +368,7 @@ var app = {
 	  if( res == "{" ){
 	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
-	  //alert(dataType);
+	  alert(data);
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    jsonString = data.slice(0,-1);
