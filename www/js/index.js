@@ -361,10 +361,12 @@ var app = {
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    dataString = data.slice(0,-1);
+	    var jsonString = '{"result":true,"count":1}';
+	    var jsonObj = eval("(function(){return " + jsonString + ";})()");
+	    alert(jsonObj.id);
+	    alert(jsonObj.ec);
 	    //alert("Before JSON: "+ dataString);
-	    jsonString = JSON.parse(dataString);	
             //app.showContent(jsonString);
-	    alert("After JSON: "+jsonString);
 	    //alert(jsonString.id);
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
