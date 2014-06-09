@@ -371,7 +371,8 @@ var app = {
 	  //} 
 	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
-	  alert(data);
+	  alert("Data: "+data);
+	    jsonString = data.replace(/|/g, ',');
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    //var jsonString = '{"result":true,"count":1}';
@@ -396,10 +397,9 @@ var app = {
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
-	    //window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
-	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , data);
-	    var parsedJSON = $.parseJSON(data); 
-	    alert(parsedJSON.id);	
+	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
+	    var parsedJSON = $.parseJSON(jsonString); 
+	    alert("JSON: "+parsedJSON.id);	
         }, app.showError);
   },
   closePort: function(){
