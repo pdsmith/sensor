@@ -402,6 +402,8 @@ var app = {
 	    // add data to session key
 	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ parsedJSON.id +"" , parsedJSON);
 	    alert("Test pull of record: " + app.SESSIONID +"-"+ parsedJSON.id);
+    	    var currentStorage = window.localStorage.getItem(app.SESSIONID +"-"+ parsedJSON.id);
+    	    alert("record: "+ currentStorage);
         }, app.showError);
   },
   closePort: function(){
