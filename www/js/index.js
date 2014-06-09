@@ -397,8 +397,8 @@ var app = {
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
 	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
-	    //var parsedJSON = $.parseJSON(jsonString); 
-	    //alert(parsedJSON.id);	
+	    var parsedJSON = $.parseJSON(jsonString); 
+	    alert(parsedJSON.id);	
         }, app.showError);
   },
   closePort: function(){
