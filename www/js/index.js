@@ -534,10 +534,14 @@ var app = {
 /* end file storage */
 
 /* start local storage */
-  dataSyncCheck: function(di,dt){
+  dataSyncCheck: function(da,dc,dt){
 	// use id and timestamp to check against check.php
 	// if successfull - remove local timestamp
-	alert("Local Timestamp Record to Delete:"+dt);
+	alert("dataSyncCheck autoid: "+ da);
+	alert("dataSyncCheck captureid: "+ dc);
+	alert("dataSyncCheck timestamp: "+ dt);
+        var currentStorage = window.localStorage.getItem(dt +"-"+ dc);
+        alert("record: "+ currentStorage);
   },
   clearLocalData: function(){
 	    alert("clearData");
@@ -603,9 +607,10 @@ var app = {
 		}, 
 		success: function(data) {
 			alert("status:"+data.submit);
-			alert("id:"+data.id);
-			alert("time:"+data.time);
-			app.dataSyncCheck(data.id,data.time);
+			alert("autoid:"+data.autoid);
+			alert("captureid:"+data.captureid);
+			alert("apptime:"+data.apptime);
+			app.dataSyncCheck(data.autoid,data.captureid,data.apptime);
 		},
 		complete: function(data) {
 			//alert("complete:"+data.key);
