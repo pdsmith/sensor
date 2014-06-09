@@ -400,10 +400,10 @@ var app = {
 	    }	
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    // add data to session key
-	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ parsedJSON.id +"" , parsedJSON);
+	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ parsedJSON.id +"" , JSON.stringify(parsedJSON));
 	    alert("Test pull of record: " + app.SESSIONID +"-"+ parsedJSON.id);
     	    var currentStorage = window.localStorage.getItem(app.SESSIONID +"-"+ parsedJSON.id);
-    	    alert("record: "+ JSON.stringify(currentStorage));
+    	    alert("record: "+ JSON.parse(currentStorage));
         }, app.showError);
   },
   closePort: function(){
@@ -486,8 +486,9 @@ var app = {
         writerOb.seek(writerOb.length);
         //writerOb.write("Test at "+new Date().toString() + "\n");
 	var localSave = app.getLocalData("local","save");
-	alert(localSave);
-        writerOb.write(localSave);
+	var jsonString = JSON.parse(localSave);
+	alert(jsonString);
+        writerOb.write(jsonString.id);
 	alert("successfully wrote");
     })
   },
