@@ -546,10 +546,11 @@ var app = {
   },
   // local function for looping through local data a=local or remote,t=save or delete
   getLocalData: function(a,t){
-     alert("a: "+a);
-     alert("t: "+t);
+     //alert("a: "+a);
+     //alert("t: "+t);
      var localSave;
      var prevStorage = window.localStorage.getItem("sensor-keys");
+      alert("prevStorage: "+prevStorage); 
      if (prevStorage != null){
 	     alert("The following session keys are saved " + prevStorage);
 	     var keysArray = prevStorage.split(',');
@@ -561,7 +562,7 @@ var app = {
 	     for(var i=0; i<loopNum; i++){
 		     //alert("Loop number " +  i + "");
 		     currentKey = keysArray.pop();
-		     alert(currentKey);
+		     alert("currentKey: "+currentKey);
 		     var read =  window.localStorage.getItem(currentKey);
 		     if(a=="local"){
      			//alert("a: "+a);
