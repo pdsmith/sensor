@@ -373,6 +373,7 @@ var app = {
 	  //var dataType = typeof(data);
 	  alert("Data: "+data);
 	    jsonString = data.replace(/|/g, '');
+	  alert("jsonString: "+jsonString);
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    //var jsonString = '{"result":true,"count":1}';
