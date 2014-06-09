@@ -394,11 +394,11 @@ var app = {
 			var keyStorage = ""+ app.SESSIONID +"-"+ randomNumber +"";
 	    }	
 		// save session key to key ring
-	    window.localStorage.setItem("sensor-keys", keyStorage);
+	    //window.localStorage.setItem("sensor-keys", keyStorage);
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
-	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
-	    var parsedJSON = $.parseJSON(jsonString); 
+	    //window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
+	    var parsedJSON = JSON.parse(jsonString); 
 	    alert("JSON: "+parsedJSON.id);	
         }, app.showError);
   },
