@@ -386,18 +386,18 @@ var app = {
 	    // key structure - key ring [sessionid1],[sessionid2],[sessionid3]
 	    // points to stored data location [sessionid1][data to store]
 	    // add another session to the key ring
-	    var keyStorage = window.localStorage.getItem("sensor-keys");
-	    var randomNumber = Math.floor(Math.random()*100);
-	    if (keyStorage != null){
-			//alert("The following sessions are saved " + keyStorage);
-			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ randomNumber +"";
-	    } else {
-			var keyStorage = ""+ app.SESSIONID +"-"+ randomNumber +"";
-	    }	
+	    //var randomNumber = Math.floor(Math.random()*100);
 	    // parse data string into json format
 	    var parsedJSON = JSON.parse(jsonString); 
 	    //alert("JSON: "+parsedJSON.id);	
 	    // save session key to key ring
+	    var keyStorage = window.localStorage.getItem("sensor-keys");
+	    if (keyStorage != null){
+			//alert("The following sessions are saved " + keyStorage);
+			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ parsedJSON.id +"";
+	    } else {
+			var keyStorage = ""+ app.SESSIONID +"-"+ parsedJSON.id +"";
+	    }	
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    // add data to session key
 	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ parsedJSON.id +"" , parsedJSON);
