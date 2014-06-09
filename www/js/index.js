@@ -570,7 +570,7 @@ var app = {
 		     }
 		     //alert("Read Session: "+ read);
 		     if(a=="remote"){
-			//alert(read);
+			alert("read: "+read);
 		     	app.submitRemote(read);
 		     }
 			     //to_submit = read.split(',');
