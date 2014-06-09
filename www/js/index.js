@@ -364,14 +364,14 @@ var app = {
 	var dataString;
 	var jsonString;
         bluetoothSerial.subscribe('|', function (data) {
-	  var res = data.charAt(0);
+	  //var res = data.charAt(0);
 	  //if res is empty remove first and last characters
-	  if(!res || 0 === res.length){
-		jsonString = data.substring(1, data.length-1);		
-	  } 
+	  //if(!res || 0 === res.length){
+		//jsonString = data.substring(1, data.length-1);		
+	  //} 
 	  //if(data !== "Initializing SD card...Initializing SD card...initialization done."){
 	  //var dataType = typeof(data);
-	  alert(jsonString);
+	  alert(data);
 	    //var app.SESSIONID = +new Date;
 	    // remove | pipe ending
 	    //var jsonString = '{"result":true,"count":1}';
@@ -396,8 +396,9 @@ var app = {
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    //alert("Test pull of sensor-keys: " + keyStorage);
 	    // add data to session key
-	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
-	    var parsedJSON = $.parseJSON(jsonString); 
+	    //window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , jsonString);
+	    window.localStorage.setItem(""+ app.SESSIONID +"-"+ randomNumber +"" , data);
+	    var parsedJSON = $.parseJSON(data); 
 	    alert(parsedJSON.id);	
         }, app.showError);
   },
