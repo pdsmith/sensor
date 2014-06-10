@@ -535,13 +535,36 @@ var app = {
 
 /* start local storage */
   dataSyncCheck: function(da,dc,dt){
-	// use id and timestamp to check against check.php
-	// if successfull - remove local timestamp
-	alert("dataSyncCheck autoid: "+ da);
-	alert("dataSyncCheck captureid: "+ dc);
-	alert("dataSyncCheck timestamp: "+ dt);
-        var currentStorage = window.localStorage.getItem(dt +"-"+ dc);
-        alert("record: "+ currentStorage);
+	// send autoid and captureid to see if record is in remote database
+	//alert("dataSyncCheck autoid: "+ da);
+	//alert("dataSyncCheck captureid: "+ dc);
+	//alert("dataSyncCheck timestamp: "+ dt);
+	// if the record is in database remove local record
+
+	//dataCheck: function(s){
+	// need to add
+
+	var currentRecord = "sensor-keys-"+ dt +"-"+ dc;
+	alert("currentRecord: "+ currentRecord);
+        window.localStorage.removeItem(currentRecord);
+        //alert("Removing record from localStorage: "+ currentStorage);
+        var prevStorage = window.localStorage.getItem("sensor-keys");
+        window.localStorage.removeItem("sensor-keys");
+        if (prevStorage != null){
+	     	alert("The following session keys are saved " + prevStorage);
+	     	var keysArray = prevStorage.split(',');
+		var keyFind = keysArray.indexOf(currentRecord);
+		if(keyFind != -1){
+			alert("keyFind Delete: "+ keyFind);
+			keysArray.splice(keyFind, 1);
+			alert("Left: "+keysArray);
+		}
+		// code below is bad need to check for emtpy array instead of string
+        	if (keysArray != null){
+			window.localStorage.setItem("sensor-keys", keysArray);
+		}
+	}
+ 
   },
   clearLocalData: function(){
 	    alert("clearData");
@@ -606,10 +629,10 @@ var app = {
 			 if(t==="timeout"){ alert("Data not Submitted"); }
 		}, 
 		success: function(data) {
-			alert("status:"+data.submit);
-			alert("autoid:"+data.autoid);
-			alert("captureid:"+data.captureid);
-			alert("apptime:"+data.apptime);
+			//alert("status:"+data.submit);
+			//alert("autoid:"+data.autoid);
+			//alert("captureid:"+data.captureid);
+			//alert("apptime:"+data.apptime);
 			app.dataSyncCheck(data.autoid,data.captureid,data.apptime);
 		},
 		complete: function(data) {
