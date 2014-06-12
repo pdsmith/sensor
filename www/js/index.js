@@ -67,6 +67,8 @@
 		homeListItemView.render();
 	},
         render: function(){
+		// clear blank li in main page before laying out menu
+		$(this.el).html("");	
 		this.collection.forEach(this.addOne, this);
 	}
   });
@@ -540,31 +542,57 @@ var app = {
 	//alert("dataSyncCheck captureid: "+ dc);
 	//alert("dataSyncCheck timestamp: "+ dt);
 	// if the record is in database remove local record
-
-	//dataCheck: function(s){
-	// need to add
-
-	var currentRecord = "sensor-keys-"+ dt +"-"+ dc;
-	alert("currentRecord: "+ currentRecord);
-        window.localStorage.removeItem(currentRecord);
-        //alert("Removing record from localStorage: "+ currentStorage);
-        var prevStorage = window.localStorage.getItem("sensor-keys");
-        window.localStorage.removeItem("sensor-keys");
-        if (prevStorage != null){
-	     	alert("The following session keys are saved " + prevStorage);
-	     	var keysArray = prevStorage.split(',');
-		var keyFind = keysArray.indexOf(currentRecord);
-		if(keyFind != -1){
-			alert("keyFind Delete: "+ keyFind);
-			keysArray.splice(keyFind, 1);
-			alert("Left: "+keysArray);
-		}
-		// code below is bad need to check for emtpy array instead of string
-        	if (keysArray != null){
-			window.localStorage.setItem("sensor-keys", keysArray);
-		}
-	}
- 
+	alert("dataSyncCheck");
+        var url = 'http://data.sccwrp.org/sensor/check.php';
+        message = $.ajax({
+                type: 'GET',
+                url: url,
+                contentType: "application/json",
+                dataType: 'jsonp',
+                data: {aa: da,cc: dc,tt: dt},
+                crossDomain: true,
+                timeout: 4000,
+                error: function(x,t,m){
+                         if(t==="timeout"){ alert("dataSyncCheck not Submitted"); }
+                },
+                success: function(data) {
+			// first delete value
+			var currentRecord = "sensor-keys-"+ dt +"-"+ dc;
+			alert("Value to Delete: "+ currentRecord);
+        		window.localStorage.removeItem(currentRecord);
+			// second delete key from ring	
+        		var prevStorage = window.localStorage.getItem("sensor-keys");
+			// not a good idea - remove current key ring
+       			//window.localStorage.removeItem("sensor-keys");
+        		if (prevStorage != null){
+	     			alert("Get Key Ring: " + prevStorage);
+				// split key ring string into array
+	     			var keysArray = prevStorage.split(',');
+				// find key we want to delete
+				var keyFind = keysArray.indexOf(currentRecord);
+				if(keyFind != -1){
+					alert("Key to Delete: "+ keyFind);
+					// remove key from ring
+					keysArray.splice(keyFind, 1);
+					//alert("Current Key Ring After Removal: "+keysArray);
+					if(keysArray.length > 0){
+       						window.localStorage.removeItem("sensor-keys");
+						var newRing = keysArray.join();
+						window.localStorage.setItem("sensor-keys", newRing);
+					} else {
+       						//window.localStorage.removeItem("sensor-keys");
+					}
+				}
+				//alert("newRing: "+ newRing);
+        			//if (newRing != null){
+				//	window.localStorage.setItem("sensor-keys", newRing);
+				//}
+			}
+                },
+                complete: function(data) {
+                        //alert("complete:"+data.key);
+                }
+        });
   },
   clearLocalData: function(){
 	    alert("clearData");
