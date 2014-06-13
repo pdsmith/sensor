@@ -568,25 +568,21 @@ var app = {
 	     			alert("Get Key Ring: " + prevStorage);
 				// split key ring string into array
 	     			var keysArray = prevStorage.split(',');
+				alert("keysArray.length: "+ keysArray.length);
 				// find key we want to delete
 				var keyFind = keysArray.indexOf(currentRecord);
 				if(keyFind != -1){
 					alert("Key to Delete: "+ keyFind);
 					// remove key from ring
 					keysArray.splice(keyFind, 1);
-					//alert("Current Key Ring After Removal: "+keysArray);
-					if(keysArray.length > 0){
-       						window.localStorage.removeItem("sensor-keys");
+					if(keysArray.length == 0){
+						alert("keysArray is empty: "+ keysArray.length);
+     						window.localStorage.removeItem("sensor-keys");
+					} else {
 						var newRing = keysArray.join();
 						window.localStorage.setItem("sensor-keys", newRing);
-					} else {
-       						//window.localStorage.removeItem("sensor-keys");
 					}
-				}
-				//alert("newRing: "+ newRing);
-        			//if (newRing != null){
-				//	window.localStorage.setItem("sensor-keys", newRing);
-				//}
+				} 
 			}
                 },
                 complete: function(data) {
