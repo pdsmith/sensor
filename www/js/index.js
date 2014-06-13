@@ -614,7 +614,9 @@ var app = {
 	     for(var i=0; i<loopNum; i++){
 		     //alert("Loop number " +  i + "");
 		     currentKey = keysArray.pop();
-		     alert("currentKey: "+currentKey);
+		     //alert("currentKey: "+currentKey);
+		     currentTime = currentKey.split('-');
+		     //alert("currentTimestamp: "+currentTime[2]);
 		     var read =  window.localStorage.getItem(currentKey);
 		     if(a=="local"){
      			//alert("a: "+a);
@@ -623,7 +625,7 @@ var app = {
 		     //alert("Read Session: "+ read);
 		     if(a=="remote"){
 			alert("read: "+read);
-		     	app.submitRemote(read);
+		     	app.submitRemote(read,currentTime[2]);
 		     }
 			     //to_submit = read.split(',');
 			     //n = oldKey.split('_')[1];
@@ -637,7 +639,7 @@ var app = {
       }
 
   },
-  submitRemote: function(s){
+  submitRemote: function(s,t){
      //alert("s:"+s);
      //function rsubmit(s){
 	var url = 'http://data.sccwrp.org/sensor/load.php';
@@ -646,7 +648,7 @@ var app = {
 		url: url,
 		contentType: "application/json",
 		dataType: 'jsonp',
-		data: {ss: s,tt: ""+ app.SESSIONID +""},
+		data: {ss: s,tt: t},
 		crossDomain: true,
 		timeout: 4000,
 		error: function(x,t,m){ 
@@ -656,7 +658,7 @@ var app = {
 			//alert("status:"+data.submit);
 			//alert("autoid:"+data.autoid);
 			//alert("captureid:"+data.captureid);
-			//alert("apptime:"+data.apptime);
+			//alert("apptime:"+data.capturetime);
 			app.dataSyncCheck(data.autoid,data.captureid,data.apptime);
 		},
 		complete: function(data) {
