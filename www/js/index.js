@@ -176,6 +176,8 @@
        			app.testData();
     		  break;
 		  case "uploadFile":
+       			app.uploadFile();
+		  break;
 		  case "blueClear":
        			app.blueClear();
     		  break;
