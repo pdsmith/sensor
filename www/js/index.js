@@ -395,17 +395,18 @@ var app = {
 	    var parsedJSON = JSON.parse(jsonString); 
 	    //alert("JSON: "+parsedJSON.id);	
 	    // save session key to key ring
+	    var sessionKey = "sensor-keys-" + app.SESSIONID + "-" + parsedJSON.id;
 	    var keyStorage = window.localStorage.getItem("sensor-keys");
 	    if (keyStorage != null){
 			//alert("The following sessions are saved " + keyStorage);
-			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ parsedJSON.id +"";
+			keyStorage = ""+ keyStorage +","+ sessionKey +"";
 	    } else {
-			var keyStorage = "sensor-keys-"+ app.SESSIONID +"-"+ parsedJSON.id +"";
+			var keyStorage = "sensor-keys-"+ sessionKey +"";
 	    }	
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    // add data to session key
-	    window.localStorage.setItem("sensor-keys-"+ app.SESSIONID +"-"+ parsedJSON.id +"" , jsonString);
-    	    var currentStorage = window.localStorage.getItem("sensor-keys-"+ app.SESSIONID +"-"+ parsedJSON.id);
+	    window.localStorage.setItem(""+ sessionKey +"" , jsonString);
+    	    var currentStorage = window.localStorage.getItem(""+ sessionKey +"");
     	    alert("currentStorage: "+ currentStorage);
         }, app.showError);
   },
