@@ -400,13 +400,13 @@ var app = {
 			//alert("The following sessions are saved " + keyStorage);
 			keyStorage = ""+ keyStorage +","+ app.SESSIONID +"-"+ parsedJSON.id +"";
 	    } else {
-			var keyStorage = ""+ app.SESSIONID +"-"+ parsedJSON.id +"";
+			var keyStorage = "sensor-keys-"+ app.SESSIONID +"-"+ parsedJSON.id +"";
 	    }	
 	    window.localStorage.setItem("sensor-keys", keyStorage);
 	    // add data to session key
 	    window.localStorage.setItem("sensor-keys-"+ app.SESSIONID +"-"+ parsedJSON.id +"" , jsonString);
     	    var currentStorage = window.localStorage.getItem("sensor-keys-"+ app.SESSIONID +"-"+ parsedJSON.id);
-    	    alert("record: "+ currentStorage);
+    	    alert("currentStorage: "+ currentStorage);
         }, app.showError);
   },
   closePort: function(){
